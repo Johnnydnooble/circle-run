@@ -1,0 +1,904 @@
+fileFormatVersion: 2
+guid: 60def569364f346aa9b937ad584b9cd4
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Main Object
+    100004: Main Object.001
+    100006: Main Object.002
+    100008: Main Object.003
+    100010: Main Object.004
+    100012: Main Object.005
+    100014: Main Object.006
+    100016: Main Object.007
+    100018: Main Object.008
+    100020: Main Object.009
+    100022: Main Object.010
+    100024: Main Object.011
+    100026: Main Object.012
+    100028: Main Object.013
+    100030: Main Object.014
+    100032: Main Object.015
+    100034: Main Object.016
+    100036: Main Object.017
+    100038: Main Object.018
+    100040: Main Object.019
+    100042: Main Object.020
+    100044: Main Object.021
+    100046: Main Object.022
+    100048: Main Object.023
+    100050: Main Object.024
+    100052: Main Object.025
+    100054: Main Object.026
+    100056: Main Object.027
+    100058: Main Object.028
+    100060: Main Object.029
+    100062: Main Object.030
+    100064: Main Object.031
+    100066: Main Object.032
+    100068: Main Object.033
+    100070: Main Object.034
+    100072: Main Object.035
+    100074: Main Object.036
+    100076: Main Object.037
+    100078: Main Object.038
+    100080: Main Object.039
+    100082: Main Object.040
+    100084: Main Object.041
+    100086: Main Object.042
+    100088: Main Object.043
+    100090: Main Object.044
+    100092: Main Object.045
+    100094: Main Object.046
+    100096: Main Object.047
+    100098: Main Object.048
+    100100: Main Object.049
+    100102: Main Object.050
+    100104: Main Object.051
+    100106: Main Object.052
+    100108: Main Object.053
+    100110: Main Object.054
+    100112: Main Object.055
+    100114: Main Object.056
+    100116: Main Object.057
+    100118: Main Object.058
+    100120: Main Object.059
+    100122: Main Object.060
+    100124: Main Object.061
+    100126: Main Object.062
+    100128: Main Object.063
+    100130: Main Object.064
+    100132: Main Object.065
+    100134: Main Object.066
+    100136: Main Object.067
+    100138: Main Object.068
+    100140: Main Object.069
+    100142: Main Object.070
+    100144: Main Object.071
+    100146: Main Object.072
+    100148: Main Object.073
+    100150: Main Object.074
+    100152: Main Object.075
+    100154: Main Object.076
+    100156: Main Object.077
+    100158: Main Object.078
+    100160: Main Object.079
+    100162: Main Object.080
+    100164: Main Object.081
+    100166: Main Object.082
+    100168: Main Object.083
+    100170: Main Object.084
+    100172: Main Object.085
+    100174: Main Object.086
+    100176: Main Object.087
+    100178: Main Object.088
+    100180: Main Object.089
+    100182: Main Object.090
+    100184: Main Object.091
+    100186: Main Object.092
+    100188: Main Object.093
+    100190: Main Object.094
+    100192: Main Object.095
+    100194: Main Object.096
+    100196: Main Object.097
+    100198: Main Object.098
+    100200: Main Object.099
+    100202: Main Object.100
+    100204: Main Object.101
+    100206: Main Object.102
+    100208: Main Object.103
+    100210: Main Object.104
+    100212: Main Object.105
+    100214: Main Object.106
+    100216: Main Object.107
+    100218: Main Object.108
+    100220: Main Object.109
+    100222: Main Object.110
+    100224: Main Object.111
+    100226: Main Object.112
+    100228: Main Object.113
+    100230: Main Object.114
+    100232: Main Object.115
+    100234: Main Object.116
+    100236: Main Object.117
+    100238: Main Object.118
+    100240: Main Object.119
+    100242: Main Object.120
+    100244: Main Object.121
+    100246: Main Object.122
+    100248: Main Object.123
+    100250: Main Object.124
+    100252: Main Object.125
+    100254: Main Object.126
+    100256: Main Object.127
+    100258: Main Object.128
+    100260: Main Object.129
+    100262: Main Object.130
+    100264: Main Object.131
+    100266: Main Object.132
+    100268: Main Object.133
+    100270: Main Object.134
+    100272: Main Object.135
+    100274: Main Object.136
+    100276: Main Object.137
+    100278: Main Object.138
+    100280: Main Object.139
+    100282: Main Object.140
+    100284: Main Object.141
+    100286: Main Object.142
+    100288: Main Object.143
+    100290: Main Object.144
+    100292: Main Object.145
+    100294: Main Object.146
+    100296: Main Object.147
+    100298: Main Object.148
+    100300: Main Object.149
+    100302: Main Object.150
+    100304: Main Object.151
+    100306: Main Object.152
+    100308: Main Object.153
+    100310: Main Object.154
+    100312: Main Object.155
+    100314: Main Object.156
+    100316: Main Object.157
+    100318: Main Object.158
+    100320: Main Object.159
+    100322: Main Object.160
+    100324: Main Object.161
+    400000: //RootNode
+    400002: Main Object
+    400004: Main Object.001
+    400006: Main Object.002
+    400008: Main Object.003
+    400010: Main Object.004
+    400012: Main Object.005
+    400014: Main Object.006
+    400016: Main Object.007
+    400018: Main Object.008
+    400020: Main Object.009
+    400022: Main Object.010
+    400024: Main Object.011
+    400026: Main Object.012
+    400028: Main Object.013
+    400030: Main Object.014
+    400032: Main Object.015
+    400034: Main Object.016
+    400036: Main Object.017
+    400038: Main Object.018
+    400040: Main Object.019
+    400042: Main Object.020
+    400044: Main Object.021
+    400046: Main Object.022
+    400048: Main Object.023
+    400050: Main Object.024
+    400052: Main Object.025
+    400054: Main Object.026
+    400056: Main Object.027
+    400058: Main Object.028
+    400060: Main Object.029
+    400062: Main Object.030
+    400064: Main Object.031
+    400066: Main Object.032
+    400068: Main Object.033
+    400070: Main Object.034
+    400072: Main Object.035
+    400074: Main Object.036
+    400076: Main Object.037
+    400078: Main Object.038
+    400080: Main Object.039
+    400082: Main Object.040
+    400084: Main Object.041
+    400086: Main Object.042
+    400088: Main Object.043
+    400090: Main Object.044
+    400092: Main Object.045
+    400094: Main Object.046
+    400096: Main Object.047
+    400098: Main Object.048
+    400100: Main Object.049
+    400102: Main Object.050
+    400104: Main Object.051
+    400106: Main Object.052
+    400108: Main Object.053
+    400110: Main Object.054
+    400112: Main Object.055
+    400114: Main Object.056
+    400116: Main Object.057
+    400118: Main Object.058
+    400120: Main Object.059
+    400122: Main Object.060
+    400124: Main Object.061
+    400126: Main Object.062
+    400128: Main Object.063
+    400130: Main Object.064
+    400132: Main Object.065
+    400134: Main Object.066
+    400136: Main Object.067
+    400138: Main Object.068
+    400140: Main Object.069
+    400142: Main Object.070
+    400144: Main Object.071
+    400146: Main Object.072
+    400148: Main Object.073
+    400150: Main Object.074
+    400152: Main Object.075
+    400154: Main Object.076
+    400156: Main Object.077
+    400158: Main Object.078
+    400160: Main Object.079
+    400162: Main Object.080
+    400164: Main Object.081
+    400166: Main Object.082
+    400168: Main Object.083
+    400170: Main Object.084
+    400172: Main Object.085
+    400174: Main Object.086
+    400176: Main Object.087
+    400178: Main Object.088
+    400180: Main Object.089
+    400182: Main Object.090
+    400184: Main Object.091
+    400186: Main Object.092
+    400188: Main Object.093
+    400190: Main Object.094
+    400192: Main Object.095
+    400194: Main Object.096
+    400196: Main Object.097
+    400198: Main Object.098
+    400200: Main Object.099
+    400202: Main Object.100
+    400204: Main Object.101
+    400206: Main Object.102
+    400208: Main Object.103
+    400210: Main Object.104
+    400212: Main Object.105
+    400214: Main Object.106
+    400216: Main Object.107
+    400218: Main Object.108
+    400220: Main Object.109
+    400222: Main Object.110
+    400224: Main Object.111
+    400226: Main Object.112
+    400228: Main Object.113
+    400230: Main Object.114
+    400232: Main Object.115
+    400234: Main Object.116
+    400236: Main Object.117
+    400238: Main Object.118
+    400240: Main Object.119
+    400242: Main Object.120
+    400244: Main Object.121
+    400246: Main Object.122
+    400248: Main Object.123
+    400250: Main Object.124
+    400252: Main Object.125
+    400254: Main Object.126
+    400256: Main Object.127
+    400258: Main Object.128
+    400260: Main Object.129
+    400262: Main Object.130
+    400264: Main Object.131
+    400266: Main Object.132
+    400268: Main Object.133
+    400270: Main Object.134
+    400272: Main Object.135
+    400274: Main Object.136
+    400276: Main Object.137
+    400278: Main Object.138
+    400280: Main Object.139
+    400282: Main Object.140
+    400284: Main Object.141
+    400286: Main Object.142
+    400288: Main Object.143
+    400290: Main Object.144
+    400292: Main Object.145
+    400294: Main Object.146
+    400296: Main Object.147
+    400298: Main Object.148
+    400300: Main Object.149
+    400302: Main Object.150
+    400304: Main Object.151
+    400306: Main Object.152
+    400308: Main Object.153
+    400310: Main Object.154
+    400312: Main Object.155
+    400314: Main Object.156
+    400316: Main Object.157
+    400318: Main Object.158
+    400320: Main Object.159
+    400322: Main Object.160
+    400324: Main Object.161
+    2100000: No Name
+    2300000: Main Object
+    2300002: Main Object.001
+    2300004: Main Object.002
+    2300006: Main Object.003
+    2300008: Main Object.004
+    2300010: Main Object.005
+    2300012: Main Object.006
+    2300014: Main Object.007
+    2300016: Main Object.008
+    2300018: Main Object.009
+    2300020: Main Object.010
+    2300022: Main Object.011
+    2300024: Main Object.012
+    2300026: Main Object.013
+    2300028: Main Object.014
+    2300030: Main Object.015
+    2300032: Main Object.016
+    2300034: Main Object.017
+    2300036: Main Object.018
+    2300038: Main Object.019
+    2300040: Main Object.020
+    2300042: Main Object.021
+    2300044: Main Object.022
+    2300046: Main Object.023
+    2300048: Main Object.024
+    2300050: Main Object.025
+    2300052: Main Object.026
+    2300054: Main Object.027
+    2300056: Main Object.028
+    2300058: Main Object.029
+    2300060: Main Object.030
+    2300062: Main Object.031
+    2300064: Main Object.032
+    2300066: Main Object.033
+    2300068: Main Object.034
+    2300070: Main Object.035
+    2300072: Main Object.036
+    2300074: Main Object.037
+    2300076: Main Object.038
+    2300078: Main Object.039
+    2300080: Main Object.040
+    2300082: Main Object.041
+    2300084: Main Object.042
+    2300086: Main Object.043
+    2300088: Main Object.044
+    2300090: Main Object.045
+    2300092: Main Object.046
+    2300094: Main Object.047
+    2300096: Main Object.048
+    2300098: Main Object.049
+    2300100: Main Object.050
+    2300102: Main Object.051
+    2300104: Main Object.052
+    2300106: Main Object.053
+    2300108: Main Object.054
+    2300110: Main Object.055
+    2300112: Main Object.056
+    2300114: Main Object.057
+    2300116: Main Object.058
+    2300118: Main Object.059
+    2300120: Main Object.060
+    2300122: Main Object.061
+    2300124: Main Object.062
+    2300126: Main Object.063
+    2300128: Main Object.064
+    2300130: Main Object.065
+    2300132: Main Object.066
+    2300134: Main Object.067
+    2300136: Main Object.068
+    2300138: Main Object.069
+    2300140: Main Object.070
+    2300142: Main Object.071
+    2300144: Main Object.072
+    2300146: Main Object.073
+    2300148: Main Object.074
+    2300150: Main Object.075
+    2300152: Main Object.076
+    2300154: Main Object.077
+    2300156: Main Object.078
+    2300158: Main Object.079
+    2300160: Main Object.080
+    2300162: Main Object.081
+    2300164: Main Object.082
+    2300166: Main Object.083
+    2300168: Main Object.084
+    2300170: Main Object.085
+    2300172: Main Object.086
+    2300174: Main Object.087
+    2300176: Main Object.088
+    2300178: Main Object.089
+    2300180: Main Object.090
+    2300182: Main Object.091
+    2300184: Main Object.092
+    2300186: Main Object.093
+    2300188: Main Object.094
+    2300190: Main Object.095
+    2300192: Main Object.096
+    2300194: Main Object.097
+    2300196: Main Object.098
+    2300198: Main Object.099
+    2300200: Main Object.100
+    2300202: Main Object.101
+    2300204: Main Object.102
+    2300206: Main Object.103
+    2300208: Main Object.104
+    2300210: Main Object.105
+    2300212: Main Object.106
+    2300214: Main Object.107
+    2300216: Main Object.108
+    2300218: Main Object.109
+    2300220: Main Object.110
+    2300222: Main Object.111
+    2300224: Main Object.112
+    2300226: Main Object.113
+    2300228: Main Object.114
+    2300230: Main Object.115
+    2300232: Main Object.116
+    2300234: Main Object.117
+    2300236: Main Object.118
+    2300238: Main Object.119
+    2300240: Main Object.120
+    2300242: Main Object.121
+    2300244: Main Object.122
+    2300246: Main Object.123
+    2300248: Main Object.124
+    2300250: Main Object.125
+    2300252: Main Object.126
+    2300254: Main Object.127
+    2300256: Main Object.128
+    2300258: Main Object.129
+    2300260: Main Object.130
+    2300262: Main Object.131
+    2300264: Main Object.132
+    2300266: Main Object.133
+    2300268: Main Object.134
+    2300270: Main Object.135
+    2300272: Main Object.136
+    2300274: Main Object.137
+    2300276: Main Object.138
+    2300278: Main Object.139
+    2300280: Main Object.140
+    2300282: Main Object.141
+    2300284: Main Object.142
+    2300286: Main Object.143
+    2300288: Main Object.144
+    2300290: Main Object.145
+    2300292: Main Object.146
+    2300294: Main Object.147
+    2300296: Main Object.148
+    2300298: Main Object.149
+    2300300: Main Object.150
+    2300302: Main Object.151
+    2300304: Main Object.152
+    2300306: Main Object.153
+    2300308: Main Object.154
+    2300310: Main Object.155
+    2300312: Main Object.156
+    2300314: Main Object.157
+    2300316: Main Object.158
+    2300318: Main Object.159
+    2300320: Main Object.160
+    2300322: Main Object.161
+    3300000: Main Object
+    3300002: Main Object.001
+    3300004: Main Object.002
+    3300006: Main Object.003
+    3300008: Main Object.004
+    3300010: Main Object.005
+    3300012: Main Object.006
+    3300014: Main Object.007
+    3300016: Main Object.008
+    3300018: Main Object.009
+    3300020: Main Object.010
+    3300022: Main Object.011
+    3300024: Main Object.012
+    3300026: Main Object.013
+    3300028: Main Object.014
+    3300030: Main Object.015
+    3300032: Main Object.016
+    3300034: Main Object.017
+    3300036: Main Object.018
+    3300038: Main Object.019
+    3300040: Main Object.020
+    3300042: Main Object.021
+    3300044: Main Object.022
+    3300046: Main Object.023
+    3300048: Main Object.024
+    3300050: Main Object.025
+    3300052: Main Object.026
+    3300054: Main Object.027
+    3300056: Main Object.028
+    3300058: Main Object.029
+    3300060: Main Object.030
+    3300062: Main Object.031
+    3300064: Main Object.032
+    3300066: Main Object.033
+    3300068: Main Object.034
+    3300070: Main Object.035
+    3300072: Main Object.036
+    3300074: Main Object.037
+    3300076: Main Object.038
+    3300078: Main Object.039
+    3300080: Main Object.040
+    3300082: Main Object.041
+    3300084: Main Object.042
+    3300086: Main Object.043
+    3300088: Main Object.044
+    3300090: Main Object.045
+    3300092: Main Object.046
+    3300094: Main Object.047
+    3300096: Main Object.048
+    3300098: Main Object.049
+    3300100: Main Object.050
+    3300102: Main Object.051
+    3300104: Main Object.052
+    3300106: Main Object.053
+    3300108: Main Object.054
+    3300110: Main Object.055
+    3300112: Main Object.056
+    3300114: Main Object.057
+    3300116: Main Object.058
+    3300118: Main Object.059
+    3300120: Main Object.060
+    3300122: Main Object.061
+    3300124: Main Object.062
+    3300126: Main Object.063
+    3300128: Main Object.064
+    3300130: Main Object.065
+    3300132: Main Object.066
+    3300134: Main Object.067
+    3300136: Main Object.068
+    3300138: Main Object.069
+    3300140: Main Object.070
+    3300142: Main Object.071
+    3300144: Main Object.072
+    3300146: Main Object.073
+    3300148: Main Object.074
+    3300150: Main Object.075
+    3300152: Main Object.076
+    3300154: Main Object.077
+    3300156: Main Object.078
+    3300158: Main Object.079
+    3300160: Main Object.080
+    3300162: Main Object.081
+    3300164: Main Object.082
+    3300166: Main Object.083
+    3300168: Main Object.084
+    3300170: Main Object.085
+    3300172: Main Object.086
+    3300174: Main Object.087
+    3300176: Main Object.088
+    3300178: Main Object.089
+    3300180: Main Object.090
+    3300182: Main Object.091
+    3300184: Main Object.092
+    3300186: Main Object.093
+    3300188: Main Object.094
+    3300190: Main Object.095
+    3300192: Main Object.096
+    3300194: Main Object.097
+    3300196: Main Object.098
+    3300198: Main Object.099
+    3300200: Main Object.100
+    3300202: Main Object.101
+    3300204: Main Object.102
+    3300206: Main Object.103
+    3300208: Main Object.104
+    3300210: Main Object.105
+    3300212: Main Object.106
+    3300214: Main Object.107
+    3300216: Main Object.108
+    3300218: Main Object.109
+    3300220: Main Object.110
+    3300222: Main Object.111
+    3300224: Main Object.112
+    3300226: Main Object.113
+    3300228: Main Object.114
+    3300230: Main Object.115
+    3300232: Main Object.116
+    3300234: Main Object.117
+    3300236: Main Object.118
+    3300238: Main Object.119
+    3300240: Main Object.120
+    3300242: Main Object.121
+    3300244: Main Object.122
+    3300246: Main Object.123
+    3300248: Main Object.124
+    3300250: Main Object.125
+    3300252: Main Object.126
+    3300254: Main Object.127
+    3300256: Main Object.128
+    3300258: Main Object.129
+    3300260: Main Object.130
+    3300262: Main Object.131
+    3300264: Main Object.132
+    3300266: Main Object.133
+    3300268: Main Object.134
+    3300270: Main Object.135
+    3300272: Main Object.136
+    3300274: Main Object.137
+    3300276: Main Object.138
+    3300278: Main Object.139
+    3300280: Main Object.140
+    3300282: Main Object.141
+    3300284: Main Object.142
+    3300286: Main Object.143
+    3300288: Main Object.144
+    3300290: Main Object.145
+    3300292: Main Object.146
+    3300294: Main Object.147
+    3300296: Main Object.148
+    3300298: Main Object.149
+    3300300: Main Object.150
+    3300302: Main Object.151
+    3300304: Main Object.152
+    3300306: Main Object.153
+    3300308: Main Object.154
+    3300310: Main Object.155
+    3300312: Main Object.156
+    3300314: Main Object.157
+    3300316: Main Object.158
+    3300318: Main Object.159
+    3300320: Main Object.160
+    3300322: Main Object.161
+    4300000: Main Object
+    4300002: Main Object.001
+    4300004: Main Object.002
+    4300006: Main Object.003
+    4300008: Main Object.004
+    4300010: Main Object.005
+    4300012: Main Object.006
+    4300014: Main Object.007
+    4300016: Main Object.008
+    4300018: Main Object.009
+    4300020: Main Object.010
+    4300022: Main Object.011
+    4300024: Main Object.012
+    4300026: Main Object.013
+    4300028: Main Object.014
+    4300030: Main Object.015
+    4300032: Main Object.016
+    4300034: Main Object.017
+    4300036: Main Object.018
+    4300038: Main Object.019
+    4300040: Main Object.020
+    4300042: Main Object.021
+    4300044: Main Object.022
+    4300046: Main Object.023
+    4300048: Main Object.024
+    4300050: Main Object.025
+    4300052: Main Object.026
+    4300054: Main Object.027
+    4300056: Main Object.028
+    4300058: Main Object.029
+    4300060: Main Object.030
+    4300062: Main Object.031
+    4300064: Main Object.032
+    4300066: Main Object.033
+    4300068: Main Object.034
+    4300070: Main Object.035
+    4300072: Main Object.036
+    4300074: Main Object.037
+    4300076: Main Object.038
+    4300078: Main Object.039
+    4300080: Main Object.040
+    4300082: Main Object.041
+    4300084: Main Object.042
+    4300086: Main Object.043
+    4300088: Main Object.044
+    4300090: Main Object.045
+    4300092: Main Object.046
+    4300094: Main Object.047
+    4300096: Main Object.048
+    4300098: Main Object.049
+    4300100: Main Object.050
+    4300102: Main Object.051
+    4300104: Main Object.052
+    4300106: Main Object.053
+    4300108: Main Object.054
+    4300110: Main Object.055
+    4300112: Main Object.056
+    4300114: Main Object.057
+    4300116: Main Object.058
+    4300118: Main Object.059
+    4300120: Main Object.060
+    4300122: Main Object.061
+    4300124: Main Object.062
+    4300126: Main Object.063
+    4300128: Main Object.064
+    4300130: Main Object.065
+    4300132: Main Object.066
+    4300134: Main Object.067
+    4300136: Main Object.068
+    4300138: Main Object.069
+    4300140: Main Object.070
+    4300142: Main Object.071
+    4300144: Main Object.072
+    4300146: Main Object.073
+    4300148: Main Object.074
+    4300150: Main Object.075
+    4300152: Main Object.076
+    4300154: Main Object.077
+    4300156: Main Object.078
+    4300158: Main Object.079
+    4300160: Main Object.080
+    4300162: Main Object.081
+    4300164: Main Object.082
+    4300166: Main Object.083
+    4300168: Main Object.084
+    4300170: Main Object.085
+    4300172: Main Object.086
+    4300174: Main Object.087
+    4300176: Main Object.088
+    4300178: Main Object.089
+    4300180: Main Object.090
+    4300182: Main Object.091
+    4300184: Main Object.092
+    4300186: Main Object.093
+    4300188: Main Object.094
+    4300190: Main Object.095
+    4300192: Main Object.096
+    4300194: Main Object.097
+    4300196: Main Object.098
+    4300198: Main Object.099
+    4300200: Main Object.100
+    4300202: Main Object.101
+    4300204: Main Object.102
+    4300206: Main Object.103
+    4300208: Main Object.104
+    4300210: Main Object.105
+    4300212: Main Object.106
+    4300214: Main Object.107
+    4300216: Main Object.108
+    4300218: Main Object.109
+    4300220: Main Object.110
+    4300222: Main Object.111
+    4300224: Main Object.112
+    4300226: Main Object.113
+    4300228: Main Object.114
+    4300230: Main Object.115
+    4300232: Main Object.116
+    4300234: Main Object.117
+    4300236: Main Object.118
+    4300238: Main Object.119
+    4300240: Main Object.120
+    4300242: Main Object.121
+    4300244: Main Object.122
+    4300246: Main Object.123
+    4300248: Main Object.124
+    4300250: Main Object.125
+    4300252: Main Object.126
+    4300254: Main Object.127
+    4300256: Main Object.128
+    4300258: Main Object.129
+    4300260: Main Object.130
+    4300262: Main Object.131
+    4300264: Main Object.132
+    4300266: Main Object.133
+    4300268: Main Object.134
+    4300270: Main Object.135
+    4300272: Main Object.136
+    4300274: Main Object.137
+    4300276: Main Object.138
+    4300278: Main Object.139
+    4300280: Main Object.140
+    4300282: Main Object.141
+    4300284: Main Object.142
+    4300286: Main Object.143
+    4300288: Main Object.144
+    4300290: Main Object.145
+    4300292: Main Object.146
+    4300294: Main Object.147
+    4300296: Main Object.148
+    4300298: Main Object.149
+    4300300: Main Object.150
+    4300302: Main Object.151
+    4300304: Main Object.152
+    4300306: Main Object.153
+    4300308: Main Object.154
+    4300310: Main Object.155
+    4300312: Main Object.156
+    4300314: Main Object.157
+    4300316: Main Object.158
+    4300318: Main Object.159
+    4300320: Main Object.160
+    4300322: Main Object.161
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 25
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
