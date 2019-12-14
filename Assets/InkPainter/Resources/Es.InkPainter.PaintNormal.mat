@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Es.InkPainter.PaintNormal
   m_Shader: {fileID: 4800000, guid: 56ff45392b7f63c46a91393a4167ebcc, type: 3}
-  m_ShaderKeywords: INK_PAINTER_NORMAL_BLEND_ADD
+  m_ShaderKeywords: DXT5NM_COMPRESS_USE INK_PAINTER_NORMAL_BLEND_ADD
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -64,8 +64,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - DXT5NM_COMPRESS: 0
     - INK_PAINTER_NORMAL_BLEND: 0
     - TEXTURE_PAINT_NORMAL_BLEND: 0
+    - _BrushRotate: 0
     - _BrushScale: 0.6
     - _BumpScale: 1
     - _Cutoff: 0.5

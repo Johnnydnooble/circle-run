@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-
     public enum CameraMode { Fixed, Dynamic, OnlyUp, SlowOnMoveDown };
     public CameraMode cameraMode;
     //we only care about height distance to the camera
@@ -21,8 +20,6 @@ public class CameraMovement : MonoBehaviour
 
     //for 3:4, distance of around 18 in y is good from the ball.
 
-
-
     void Start()
     {
         
@@ -34,7 +31,6 @@ public class CameraMovement : MonoBehaviour
         //Camera Movement Logic Here
         if (cameraOffsetY != 0)
         {
-
             if (cameraMode == CameraMode.Dynamic)
             {
                 currentYBall = GameObject.FindObjectOfType<Ball>().transform.position.y;
@@ -51,7 +47,6 @@ public class CameraMovement : MonoBehaviour
 
             if (cameraMode == CameraMode.OnlyUp)
             {
-
                 currentYBall = GameObject.FindObjectOfType<Ball>().transform.position.y;
 
                 float yDistanceOfBallFromInitialY = currentYBall - initialYBall;
@@ -60,8 +55,7 @@ public class CameraMovement : MonoBehaviour
                 {
                     
                 } else
-                {
-                    
+                {                    
                     persistentYDistanceOfBallFromInitialY = yDistanceOfBallFromInitialY;
 
                     float desiredPositionY = currentYBall + cameraOffsetY + yDistanceOfBallFromInitialY * 1.3f;
@@ -70,12 +64,10 @@ public class CameraMovement : MonoBehaviour
                     Vector3 newTransformPosition = new Vector3(x: transform.position.x, y: desiredPositionY, z: transform.position.z);
                     transform.position = newTransformPosition;
                 }
-
             }
 
             if (cameraMode == CameraMode.SlowOnMoveDown)
             {
-
                 currentYBall = GameObject.FindObjectOfType<Ball>().transform.position.y;
 
                 float yDistanceOfBallFromInitialY = currentYBall - initialYBall;
@@ -85,11 +77,9 @@ public class CameraMovement : MonoBehaviour
                     float desiredPositionY = currentYBall + cameraOffsetY + yDistanceOfBallFromInitialY*1.3f;
                     Vector3 newTransformPosition = new Vector3(x: transform.position.x, y: desiredPositionY, z: transform.position.z);
                     transform.position = newTransformPosition;
-
                 }
                 else
                 {
-
                     persistentYDistanceOfBallFromInitialY = yDistanceOfBallFromInitialY;
 
                     float desiredPositionY = currentYBall + cameraOffsetY + yDistanceOfBallFromInitialY * 1.3f;
@@ -98,10 +88,6 @@ public class CameraMovement : MonoBehaviour
                     Vector3 newTransformPosition = new Vector3(x: transform.position.x, y: desiredPositionY, z: transform.position.z);
                     transform.position = newTransformPosition;
                 }
-
-
-
-
             }
 
             if (cameraMode == CameraMode.Fixed)
@@ -113,13 +99,12 @@ public class CameraMovement : MonoBehaviour
 
     public void SetOffset(GameObject piece)
     {
-        if (! offsetDetermined)
+        if (!offsetDetermined)
         {
             initialYBall = GameObject.FindObjectOfType<Ball>().transform.position.y;
             cameraOffsetY = transform.position.y - piece.transform.position.y;
             initialOffset = cameraOffsetY;
-            offsetDetermined = true;
-            
+            offsetDetermined = true;            
         }
     }
 }

@@ -28,8 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Plate")]
     [SerializeField] bool OverrideDefaultMat;
-    [SerializeField] Material plateMat;
-    
+    [SerializeField] Material plateMat;   
 
 
     List<GameObject> pieceList = new List<GameObject>();
@@ -37,16 +36,13 @@ public class GameManager : MonoBehaviour
     //Materials
     Material colorMat;
 
-
     //Array of levels
     public GameObject[] levelArray;
-
 
     //Game States
     bool isPlaying;
     bool isLevelCreated;
     bool LevelFinished;
-
 
     //UI
     public GameObject winPanel;
@@ -67,12 +63,10 @@ public class GameManager : MonoBehaviour
 
         //Set Material
         colorMat = Resources.Load("BlueMat", typeof(Material)) as Material;
-
     }
 
     private void SetupPieces()
-    {
-        
+    {        
         foreach (Transform child in levelObject.transform.GetChild(0))
         {
             child.gameObject.AddComponent<MeshCollider>();
@@ -80,7 +74,6 @@ public class GameManager : MonoBehaviour
             {
                 child.gameObject.GetComponent<Renderer>().material = plateMat;
             }
-
             pieceList.Add(child.gameObject);
         }
 
@@ -120,15 +113,6 @@ public class GameManager : MonoBehaviour
                 pieceList.Add(child.gameObject);
             }
         }
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -157,13 +141,9 @@ public class GameManager : MonoBehaviour
                     {
                         LevelFinished = false;
                         break;
-
-
                     }
-
                 }
             }
-
             //Debug.Log(bottomLid.transform.position);
             //Debug.Log(ball.transform.position);
         }
@@ -171,8 +151,6 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Ball rigidbody " + ball);
         //Debug.Log("Radius to ball is " + radiusToBall);
         //Debug.Log("Tangent is: " + tangent);
-
-
     }
 
     private void FixedUpdate()
@@ -221,13 +199,9 @@ public class GameManager : MonoBehaviour
         pieceList.Remove(piece);
 
 
-
-
         // rend.material.DOColor(Color.green, 0.5f);
 
         rend.material = pieceMat;
-
-
     }
 
     public void animatePiece(GameObject piece)
@@ -236,8 +210,6 @@ public class GameManager : MonoBehaviour
         //Sequence s = DOTween.Sequence();
         //s.Append(piece.transform.DOScale(110f, 0.25f));
         //s.Append(piece.transform.DOScale(100f, 0.25f));
-
-
     }
 
 
@@ -253,6 +225,4 @@ public class GameManager : MonoBehaviour
         losePanel.SetActive(true);
         Time.timeScale = 0;
     }
-
-
 }
