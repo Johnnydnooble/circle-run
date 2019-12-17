@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.AI;
+using UnityEngine.ProBuilder;
 
 public class GameManager : MonoBehaviour
 {
@@ -124,12 +125,16 @@ public class GameManager : MonoBehaviour
             radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
             Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && ballPrefab.name != "BallInkPaint(Clone)")
             {
                 Debug.Log("Force to ball applied");
                 //With impulse, 0.15f is enough for relatively flat objects
                 //With acceleration, that's very small
                 ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.15f, ForceMode.Impulse);
+            }
+            else if (Input.GetMouseButton(0) && ballPrefab.name == "BallInkPaint(Clone)")
+            {
+                ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.05f, ForceMode.Impulse);
             }
 
             if (pieceList.Count > 29)
@@ -156,8 +161,9 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
        // Debug.Log(pieceList.Count);
-        if (pieceList.Count == 0)
+        if (pieceList.Count == 0 && levelArray[0].name != "p_00")
         {
+            Debug.Log(levelArray[0].name);
             //WinLevel();
             StartCoroutine(WaitForTime());
         }

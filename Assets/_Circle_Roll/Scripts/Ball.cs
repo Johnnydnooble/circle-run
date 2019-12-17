@@ -12,19 +12,16 @@ public class Ball : MonoBehaviour
     }
 
     
-    void Update()
-    {
-        
-    }
+    void Update() { }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        GameObject.FindObjectOfType<CameraMovement>().SetOffset(collision.gameObject);
-        
-        
-        gameManager.changeColor(collision.gameObject);
-        gameManager.animatePiece(collision.gameObject);
+        //       GameObject.FindObjectOfType<CameraMovement>().SetOffset(collision.gameObject);        
+        if (gameObject.name != "BallInkPaint(Clone)")
+        {
+           gameManager.changeColor(collision.gameObject);
+           gameManager.animatePiece(collision.gameObject);
+        }
     }
 }
