@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
             }
             else if (Input.GetMouseButton(0) && ballPrefab.name == "BallInkPaint(Clone)")
             {
-                ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.05f, ForceMode.Impulse);
+                ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.15f, ForceMode.Impulse);
             }
 
             if (pieceList.Count > 29)
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
        // Debug.Log(pieceList.Count);
-        if (pieceList.Count == 0 && levelArray[0].name != "p_00")
+        if (pieceList.Count == 0 && levelArray[0].name != "p_00_")
         {
             Debug.Log(levelArray[0].name);
             //WinLevel();
