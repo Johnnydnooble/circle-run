@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.AI;
 using UnityEngine.ProBuilder;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,14 +24,13 @@ public class GameManager : MonoBehaviour
     GameObject bottomLid;
     GameObject levelObject;
     private Rigidbody rb;
+    private float speed = 5f;
     private Vector3 radiusToBall;
-//    private int _currentLevel = 1;
     Transform[] levelChildren;
 
     [Header("Plate")]
     [SerializeField] bool OverrideDefaultMat;
-    [SerializeField] Material plateMat;   
-
+    [SerializeField] Material plateMat;
 
     List<GameObject> pieceList = new List<GameObject>();
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     Material colorMat;
 
     //Array of levels
-    public GameObject[] levelArray;
+    public GameObject[] levelArray = new GameObject[6];
 
     //Game States
     bool isPlaying;
@@ -46,37 +46,50 @@ public class GameManager : MonoBehaviour
     bool LevelFinished;
 
     //UI
+    public GameObject gamePanel;
+    public Text textCurrent;
     public GameObject winPanel;
     public GameObject losePanel;
 
     [SerializeField] Color newColor = Color.white;
-
+    // Level
     private int _currentLevel;
-    public int CurrentLevel  {  get { return _currentLevel; }  set { _currentLevel = value; }}
+    public int CurrentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
 
     private void Awake()
     {
-//        PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня)
+        //        PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня)
+
+        Time.timeScale = 1;
+
         InitSaves();
+        if (_currentLevel >= levelArray.Length)
+        {
+            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня если закончились уровни)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void Start()
     {
+        textCurrent.text = (_currentLevel + 1).ToString();
         //instantiate ball at initial position
         ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
         //set ball's color
         ballPrefab.GetComponent<Renderer>().material.color = ballColor;
         rb = ballPrefab.GetComponent<Rigidbody>();
+
         levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
         SetupPieces();
         bottomLid = levelObject.transform.GetChild(0).gameObject;
+
 
         //Set Material
         colorMat = Resources.Load("BlueMat", typeof(Material)) as Material;
     }
 
     private void SetupPieces()
-    {        
+    {
         foreach (Transform child in levelObject.transform.GetChild(0))
         {
             child.gameObject.AddComponent<MeshCollider>();
@@ -126,7 +139,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         //radiusToBall = ball.transform.position - centre.transform.position;
         if (bottomLid != null)
@@ -139,9 +152,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Force to ball applied");
                 //With impulse, 0.15f is enough for relatively flat objects
                 //With acceleration, that's very small
-                ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.15f, ForceMode.Impulse);
+                rb.AddForce(tangent * 15f * Time.deltaTime, ForceMode.Impulse);
+ //               rb.AddForce(tangent * 500f * Time.deltaTime, ForceMode.Force);
             }
-
 
             if (pieceList.Count > 29)
             {
@@ -155,18 +168,13 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            //Debug.Log(bottomLid.transform.position);
-            //Debug.Log(ball.transform.position);
         }
-        //Debug.Log("Bottom lid " + bottomLid);
-        //Debug.Log("Ball rigidbody " + ball);
-        //Debug.Log("Radius to ball is " + radiusToBall);
-        //Debug.Log("Tangent is: " + tangent);
     }
 
-    private void FixedUpdate()
+
+    private void Update()
     {
-       // Debug.Log(pieceList.Count);
+        // Debug.Log(pieceList.Count);
         if (pieceList.Count == 0)
         {
             Debug.Log(levelArray[_currentLevel].name);
@@ -186,26 +194,19 @@ public class GameManager : MonoBehaviour
         WinLevel();
     }
 
-
-
-    private void CheckForLevelCompletion()
-    {
-
-        
-    }
+    private void CheckForLevelCompletion() { }
 
     public void RestartLevel()
     {
         Time.timeScale = 1;
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-//        currentLevel += 1;
     }
 
     public void NextLevel()
     {
-        Time.timeScale = 1;      
-      
+        Time.timeScale = 1;
+
         _currentLevel++;
         SaveData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -213,26 +214,21 @@ public class GameManager : MonoBehaviour
 
     public void changeColor(GameObject piece)
     {
-        
         //Fetch the Renderer
         Renderer rend = piece.GetComponent<Renderer>();
 
         pieceList.Remove(piece);
 
-
         // rend.material.DOColor(Color.green, 0.5f);
-
         rend.material = pieceMat;
     }
 
     public void animatePiece(GameObject piece)
     {
-
         //Sequence s = DOTween.Sequence();
         //s.Append(piece.transform.DOScale(110f, 0.25f));
         //s.Append(piece.transform.DOScale(100f, 0.25f));
     }
-
 
     public void WinLevel()
     {
@@ -240,13 +236,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-
     public void FailLevel()
     {
         losePanel.SetActive(true);
         Time.timeScale = 0;
     }
-
 
     private void SaveData() // сохранить 
     {
