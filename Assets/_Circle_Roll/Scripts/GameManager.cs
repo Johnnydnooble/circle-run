@@ -150,10 +150,8 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 Debug.Log("Force to ball applied");
-                //With impulse, 0.15f is enough for relatively flat objects
-                //With acceleration, that's very small
-                rb.AddForce(tangent * 15f * Time.deltaTime, ForceMode.Impulse);
- //               rb.AddForce(tangent * 500f * Time.deltaTime, ForceMode.Force);
+//                rb.AddForce(tangent * 15f * Time.deltaTime, ForceMode.Impulse); // is fast
+               rb.AddForce(tangent * 500f * Time.deltaTime, ForceMode.Force); // is slow
             }
 
             if (pieceList.Count > 29)
