@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     GameObject levelObject;
     private Rigidbody rb;
     private Vector3 radiusToBall;
-    static int currentLevel = 1;
+//    private int _currentLevel = 1;
     Transform[] levelChildren;
 
     [Header("Plate")]
@@ -51,6 +51,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Color newColor = Color.white;
 
+    private int _currentLevel;
+    public int CurrentLevel  {  get { return _currentLevel; }  set { _currentLevel = value; }}
+
+    private void Awake()
+    {
+//        PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня)
+        InitSaves();
+    }
+
     void Start()
     {
         //instantiate ball at initial position
@@ -58,7 +67,7 @@ public class GameManager : MonoBehaviour
         //set ball's color
         ballPrefab.GetComponent<Renderer>().material.color = ballColor;
         rb = ballPrefab.GetComponent<Rigidbody>();
-        levelObject = Instantiate(levelArray[currentLevel - 1], new Vector3(0, 0, 0), Quaternion.identity);
+        levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
         SetupPieces();
         bottomLid = levelObject.transform.GetChild(0).gameObject;
 
@@ -125,17 +134,14 @@ public class GameManager : MonoBehaviour
             radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
             Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
 
-            if (Input.GetMouseButton(0) && ballPrefab.name != "BallInkPaint(Clone)")
+            if (Input.GetMouseButton(0))
             {
                 Debug.Log("Force to ball applied");
                 //With impulse, 0.15f is enough for relatively flat objects
                 //With acceleration, that's very small
                 ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.15f, ForceMode.Impulse);
             }
-            else if (Input.GetMouseButton(0) && ballPrefab.name == "BallInkPaint(Clone)")
-            {
-                ballPrefab.GetComponent<Rigidbody>().AddForce(tangent * 0.15f, ForceMode.Impulse);
-            }
+
 
             if (pieceList.Count > 29)
             {
@@ -161,9 +167,9 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
        // Debug.Log(pieceList.Count);
-        if (pieceList.Count == 0 && levelArray[0].name != "p_00_")
+        if (pieceList.Count == 0)
         {
-            Debug.Log(levelArray[0].name);
+            Debug.Log(levelArray[_currentLevel].name);
             //WinLevel();
             StartCoroutine(WaitForTime());
         }
@@ -193,7 +199,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        currentLevel += 1;
+//        currentLevel += 1;
+    }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1;      
+      
+        _currentLevel++;
+        SaveData();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void changeColor(GameObject piece)
@@ -230,5 +245,18 @@ public class GameManager : MonoBehaviour
     {
         losePanel.SetActive(true);
         Time.timeScale = 0;
+    }
+
+
+    private void SaveData() // сохранить 
+    {
+        PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+        Debug.Log("CurrentLevel  " + _currentLevel);
+    }
+
+    private void InitSaves() // получить 
+    {
+        _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
+        SaveData();
     }
 }
