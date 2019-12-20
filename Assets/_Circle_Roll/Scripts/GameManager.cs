@@ -11,54 +11,89 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //    [Header("ResetLevel")]
+    //    [SerializeField]public bool resetLevel;
+    [Header("loadLevel")]
+    [Range(1, 2)]
+    [SerializeField] public int loadLevel;
+
+    // Level
+    private int _currentLevel;
+    public int CurrentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
+
+    [Header("UI")]
+    [SerializeField] GameObject gamePanel;
+    [SerializeField] Text textCurrent;
+    [SerializeField] GameObject winPanel;
+    [SerializeField] GameObject losePanel;
+
     [Header("Ball")]
     [Space(3)]
     [SerializeField] GameObject ballPrefab;
     [SerializeField] Vector3 ballInitialPos = new Vector3(x: 0, y: 10, z: 0);
     [SerializeField] Color ballColor;
+    [Range(3f, 60f)]
+    [SerializeField] float speedBall = 15f;
+    [SerializeField] bool OverrideDefaultSpeedBall;
     [Space(3)]
-
-    [Header("Piece")]
-    [SerializeField] Material pieceMat;
-
-    GameObject bottomLid;
-    GameObject levelObject;
-    private Rigidbody rb;
-    private float speed = 5f;
-    private Vector3 radiusToBall;
-    Transform[] levelChildren;
 
     [Header("Plate")]
     [SerializeField] bool OverrideDefaultMat;
     [SerializeField] Material plateMat;
+    [SerializeField] Color plateColor;
 
-    List<GameObject> pieceList = new List<GameObject>();
+    [Header("Piece")]
+    [SerializeField] Material pieceMat;
+    [SerializeField] Color pieceColor;
+
+    [Header("Background")]
+    [SerializeField] GameObject background;
+    [SerializeField] Material backgroundMat;
+    [SerializeField] Color backgroundColor;
+
+    [Header("Array of levels")]
+    [SerializeField] GameObject[] levelArray = new GameObject[2];
+
+    [SerializeField] Color newColor = Color.white;
+
+    private GameObject bottomLid;
+    private GameObject levelObject;
+    private Rigidbody rb;
+   
+    private Vector3 radiusToBall;
+
+
+    private Transform[] levelChildren;
+    private List<GameObject> pieceList = new List<GameObject>();
 
     //Materials
-    Material colorMat;
-
-    //Array of levels
-    public GameObject[] levelArray = new GameObject[6];
+    private Material colorMat;   
 
     //Game States
     bool isPlaying;
     bool isLevelCreated;
     bool LevelFinished;
-
-    //UI
-    public GameObject gamePanel;
-    public Text textCurrent;
-    public GameObject winPanel;
-    public GameObject losePanel;
-
-    [SerializeField] Color newColor = Color.white;
-    // Level
-    private int _currentLevel;
-    public int CurrentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
+    
 
     private void Awake()
     {
-        //        PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня)
+//        if (resetLevel)
+//        {
+//            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня)
+//            resetLevel = false;
+//        }
+
+        if (loadLevel != _currentLevel && loadLevel > _currentLevel)
+        {
+            _currentLevel = (loadLevel - 1);
+            levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+            PlayerPrefs.SetInt("CurrentLevel", _currentLevel); 
+        }
+        else
+        {
+            levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+          PlayerPrefs.SetInt("CurrentLevel", _currentLevel); 
+        }
 
         Time.timeScale = 1;
 
@@ -68,24 +103,32 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня если закончились уровни)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        SetupPieces();
+        bottomLid = levelObject.transform.GetChild(0).gameObject;
     }
 
     void Start()
     {
+        // level
         textCurrent.text = (_currentLevel + 1).ToString();
         //instantiate ball at initial position
         ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
-        //set ball's color
-        ballPrefab.GetComponent<Renderer>().material.color = ballColor;
         rb = ballPrefab.GetComponent<Rigidbody>();
 
-        levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
-        SetupPieces();
-        bottomLid = levelObject.transform.GetChild(0).gameObject;
-
+        //set color
+        ballPrefab.GetComponent<Renderer>().material.color = ballColor;
+        pieceMat.color = pieceColor;
+        plateMat.color = plateColor;
+        backgroundMat.color = backgroundColor;
 
         //Set Material
-        colorMat = Resources.Load("BlueMat", typeof(Material)) as Material;
+        colorMat = Resources.Load("BlueMat", typeof(Material)) as Material;    
+
+        // plate, piece
+ //       levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+ //       SetupPieces();
+        bottomLid = levelObject.transform.GetChild(0).gameObject; 
     }
 
     private void SetupPieces()
@@ -109,7 +152,6 @@ public class GameManager : MonoBehaviour
             }
             pieceList.Add(child.gameObject);
         }
-
 
         if (levelObject.transform.childCount > 2)
         {
@@ -150,8 +192,15 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 Debug.Log("Force to ball applied");
-//                rb.AddForce(tangent * 15f * Time.deltaTime, ForceMode.Impulse); // is fast
-               rb.AddForce(tangent * 500f * Time.deltaTime, ForceMode.Force); // is slow
+                if (OverrideDefaultSpeedBall)
+                {
+                    rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
+                }
+                else
+                {
+                    rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast                  
+                }
+                            
             }
 
             if (pieceList.Count > 29)
@@ -176,7 +225,6 @@ public class GameManager : MonoBehaviour
         if (pieceList.Count == 0)
         {
             Debug.Log(levelArray[_currentLevel].name);
-            //WinLevel();
             StartCoroutine(WaitForTime());
         }
 
@@ -206,7 +254,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         _currentLevel++;
-        SaveData();
+//        SaveData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
