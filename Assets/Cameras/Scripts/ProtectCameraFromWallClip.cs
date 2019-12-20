@@ -42,8 +42,8 @@ namespace UnityStandardAssets.Cameras
             // initially set the target distance
             float targetDist = m_OriginalDist;
 
-            m_Ray.origin = m_Pivot.position + m_Pivot.forward*sphereCastRadius;
-            m_Ray.direction = -m_Pivot.forward;
+            m_Ray.origin = m_Pivot.position + m_Pivot.up*sphereCastRadius;
+            m_Ray.direction = -m_Pivot.up;
 
             // initial check to see if start of spherecast intersects anything
             var cols = Physics.OverlapSphere(m_Ray.origin, sphereCastRadius);
@@ -92,7 +92,7 @@ namespace UnityStandardAssets.Cameras
                 {
                     // change the nearest collision to latest
                     nearest = m_Hits[i].distance;
-                    targetDist = -m_Pivot.InverseTransformPoint(m_Hits[i].point).z;
+                    targetDist = m_Pivot.InverseTransformPoint(m_Hits[i].point).z;
                     hitSomething = true;
                 }
             }
@@ -100,7 +100,7 @@ namespace UnityStandardAssets.Cameras
             // visualise the cam clip effect in the editor
             if (hitSomething)
             {
-                Debug.DrawRay(m_Ray.origin, -m_Pivot.forward*(targetDist + sphereCastRadius), Color.red);
+                Debug.DrawRay(m_Ray.origin, m_Pivot.up*(targetDist + sphereCastRadius), Color.red);
             }
 
             // hit something so move the camera to a better position
@@ -108,7 +108,7 @@ namespace UnityStandardAssets.Cameras
             m_CurrentDist = Mathf.SmoothDamp(m_CurrentDist, targetDist, ref m_MoveVelocity,
                                            m_CurrentDist > targetDist ? clipMoveTime : returnTime);
             m_CurrentDist = Mathf.Clamp(m_CurrentDist, closestDistance, m_OriginalDist);
-            m_Cam.localPosition = -Vector3.forward*m_CurrentDist;
+            m_Cam.localPosition = Vector3.up*m_CurrentDist;
         }
 
 
