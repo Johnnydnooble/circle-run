@@ -3783,8 +3783,8 @@ GameObject:
   m_Component:
   - component: {fileID: 308945811095915603}
   m_Layer: 0
-  m_Name: m4model
-  m_TagString: Untagged
+  m_Name: m4
+  m_TagString: Plate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

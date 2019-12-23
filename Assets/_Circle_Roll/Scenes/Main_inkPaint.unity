@@ -179,7 +179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 108.96, y: -30, z: 0}
 --- !u!1 &488890009
 GameObject:
@@ -270,7 +270,7 @@ Transform:
   m_Children:
   - {fileID: 1933472140}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
@@ -354,7 +354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &534669906
 MonoBehaviour:
@@ -415,17 +415,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e46da6d2d77491789d2c9d78b7c9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 4466709565914257738, guid: da37b0da8657be348984c50ca25d71b2,
+  loadLevel: 4
+  rotateCameraAxisX: 47.8
+  moveCameraAlongAxisZ: 0.1
+  gamePanel: {fileID: 0}
+  textCurrent: {fileID: 0}
+  winPanel: {fileID: 1361673414}
+  losePanel: {fileID: 1326827449}
+  ballPrefab: {fileID: 4466709565914257738, guid: 7ef540b4266d3469db6d075c664d70ea,
+    type: 3}
+  ballInkPaintPrefab: {fileID: 4466709565914257738, guid: da37b0da8657be348984c50ca25d71b2,
     type: 3}
   ballInitialPos: {x: 0.5, y: 10, z: 0}
   ballColor: {r: 0.20932718, g: 0.9056604, b: 0.28356645, a: 0}
-  pieceMat: {fileID: 2100000, guid: 92708b6a9094b4b5ea1c08529f33934a, type: 2}
+  speedBall: 10.4
+  OverrideDefaultSpeedBall: 0
   OverrideDefaultMat: 0
   plateMat: {fileID: 2100000, guid: d4a8bc42d10b742488c46c1c211d6b5b, type: 2}
+  plateColor: {r: 0, g: 0, b: 0, a: 0}
+  pieceMat: {fileID: 2100000, guid: 92708b6a9094b4b5ea1c08529f33934a, type: 2}
+  pieceColor: {r: 0, g: 0, b: 0, a: 0}
+  background: {fileID: 1992541238}
+  backgroundMat: {fileID: 0}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   levelArray:
+  - {fileID: 7371975288357437694, guid: 3674fa7c0033feb458c1f5b1b463a6f7, type: 3}
+  - {fileID: 7230171717646481892, guid: 4bc1cd793d723064bb5e67d4a939be78, type: 3}
+  - {fileID: 8354664663082670488, guid: abea1ba57c039e5418645f9a2cbced0e, type: 3}
   - {fileID: 2708774058363705953, guid: e198184dc67e11f4faa79d5e476b97f9, type: 3}
-  winPanel: {fileID: 1361673414}
-  losePanel: {fileID: 1326827449}
   newColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &656794273
 Transform:
@@ -439,7 +456,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &771314426
 GameObject:
@@ -715,7 +732,7 @@ Transform:
   m_Children:
   - {fileID: 862393789}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1326827449
 GameObject:
@@ -1168,7 +1185,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1884662805
 GameObject:
@@ -1382,8 +1399,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 83.59, y: 1.5, z: 0}
+--- !u!1 &1992541238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 3f4f7f791b6408842b9f11b8957c5800,
+    type: 3}
+  m_PrefabInstance: {fileID: 2072827447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2034616399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,7 +1702,7 @@ RectTransform:
   - {fileID: 1361673415}
   - {fileID: 1326827450}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -13,29 +13,42 @@ public class GameManager : MonoBehaviour
 {
     //    [Header("ResetLevel")]
     //    [SerializeField]public bool resetLevel;
-    [Header("loadLevel")]
-    [Range(1, 2)]
+    [Header("load Level 1 - 4")]
+    [Range(1, 4)]
     [SerializeField] public int loadLevel;
 
     // Level
     private int _currentLevel;
     public int CurrentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
 
+    [Header("Camera Move")]
+    [SerializeField] GameObject camera;
+    [Range(40f, 90f)]
+    [SerializeField] float rotateCameraAxisX;
+    [Range(0.1f, -20f)]
+    [SerializeField] float moveCameraAlongAxisZ;
+    [Range(0f, 30f)]
+    [SerializeField] float zoomCameraAlongAxisY;
+    [SerializeField] public bool OverrideDefaultCameraMove;
+//    public bool OverrideDefaultCameraMove { get; set; }
+
     [Header("UI")]
     [SerializeField] GameObject gamePanel;
     [SerializeField] Text textCurrent;
     [SerializeField] GameObject winPanel;
     [SerializeField] GameObject losePanel;
+    [SerializeField] GameObject confettiParticle;
 
     [Header("Ball")]
-    [Space(3)]
+    [Space(5)]
     [SerializeField] GameObject ballPrefab;
+    [SerializeField] GameObject ballInkPaintPrefab;
     [SerializeField] Vector3 ballInitialPos = new Vector3(x: 0, y: 10, z: 0);
     [SerializeField] Color ballColor;
     [Range(3f, 60f)]
     [SerializeField] float speedBall = 15f;
     [SerializeField] bool OverrideDefaultSpeedBall;
-    [Space(3)]
+    [Space(5)]
 
     [Header("Plate")]
     [SerializeField] bool OverrideDefaultMat;
@@ -52,7 +65,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color backgroundColor;
 
     [Header("Array of levels")]
-    [SerializeField] GameObject[] levelArray = new GameObject[2];
+    [SerializeField] GameObject[] levelArray = new GameObject[4];
 
     [SerializeField] Color newColor = Color.white;
 
@@ -83,7 +96,7 @@ public class GameManager : MonoBehaviour
 //            resetLevel = false;
 //        }
 
-        if (loadLevel != _currentLevel && loadLevel > _currentLevel)
+        if (loadLevel != _currentLevel && loadLevel > _currentLevel)  // 
         {
             _currentLevel = (loadLevel - 1);
             levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
@@ -113,7 +126,15 @@ public class GameManager : MonoBehaviour
         // level
         textCurrent.text = (_currentLevel + 1).ToString();
         //instantiate ball at initial position
-        ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
+        if (loadLevel == 4)
+        {
+            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
+        }
+        else
+        {
+            ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
+        }
+       
         rb = ballPrefab.GetComponent<Rigidbody>();
 
         //set color
@@ -222,7 +243,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Debug.Log(pieceList.Count);
-        if (pieceList.Count == 0)
+        if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)")
         {
             Debug.Log(levelArray[_currentLevel].name);
             StartCoroutine(WaitForTime());
@@ -232,11 +253,20 @@ public class GameManager : MonoBehaviour
         {
             FailLevel();
         }
+
+        if (!OverrideDefaultCameraMove)
+        {
+            camera.transform.position = new Vector3(0f, zoomCameraAlongAxisY, moveCameraAlongAxisZ);
+            camera.transform.rotation = Quaternion.Euler(rotateCameraAxisX, 0f, 0f);
+        }
+        
     }
 
     IEnumerator WaitForTime()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
+        confettiParticle.SetActive(true);
+        yield return new WaitForSeconds(2f);
         WinLevel();
     }
 

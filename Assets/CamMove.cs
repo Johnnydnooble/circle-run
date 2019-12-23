@@ -9,37 +9,43 @@ public class CamMove : MonoBehaviour
  //   public GameObject Player;
 
     private Vector3 offset;
-    public float smooth = 5.0f;
+    [SerializeField] private float smooth = 0.5f;
 
-    public Transform m_Player; // Reference to the player's transform.
+    [SerializeField] private Transform player; // Reference to the player's transform.
+    [SerializeField] private GameObject plate;
 
+    private GameManager gameManager;
 
 
     void Start()
-    {  
+    {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         StartCoroutine(FindPlayer());
     }
 
     void LateUpdate()
     {
-        if (m_Player !=  null && PlayerPrefs.GetInt("CurrentLevel", 0) == 1)
+        if (player != null && gameManager.OverrideDefaultCameraMove)
         {
-            Debug.Log("222222222222222");
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, m_Player.position.y + ((Mathf.Abs(m_Player.position.x) + Mathf.Abs(m_Player.position.z)) * 2) + offset.y , transform.position.z), Time.deltaTime * smooth);
-        }
-        else if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 0)
-        {
-            Debug.Log("11111111111");
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, m_Player.position.y + offset.y, transform.position.z), Time.deltaTime * smooth);
-        }
-     
+            if (plate.name == "Plate_9_02(Clone)")
+            {
+                Debug.Log(plate.name);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * 2) + offset.y, transform.position.z), Time.deltaTime * smooth);
+            }
+            else //if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 2)
+            {
+                Debug.Log("It's not a Plate_9_02(Clone)");
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + offset.y, transform.position.z), Time.deltaTime * smooth);
+            }
+        }          
     }
 
     IEnumerator FindPlayer()
     {
         yield return new WaitForSeconds(1f);
-        m_Player = GameObject.FindGameObjectWithTag("Player").transform;
-        offset = transform.position - m_Player.transform.position;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        plate = GameObject.FindGameObjectWithTag("Plate");
+        offset = transform.position - player.transform.position;
     }
 }
 
