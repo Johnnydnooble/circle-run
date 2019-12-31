@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     private Vector3 radiusToBall;
 
 
-//    private Transform[] levelChildren;
+    private List<GameObject> pieceListObst = new List<GameObject>();
     private List<GameObject> pieceList = new List<GameObject>();
 
     //Materials
@@ -91,7 +91,8 @@ public class GameManager : MonoBehaviour
     // Obstacles
     [SerializeField] GameObject archObstaclePref;
     private GameObject archObstacle;
-//    [SerializeField] GameObject pieceObstacle;
+    //    [SerializeField] GameObject pieceObstacle;
+    int old = 0;
 
     private void Awake()
     {
@@ -154,23 +155,27 @@ public class GameManager : MonoBehaviour
         // plate, piece
  //       levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
  //       SetupPieces();
-        bottomLid = levelObject.transform.GetChild(0).gameObject; 
+        bottomLid = levelObject.transform.GetChild(0).gameObject;
 
-
+            StartCoroutine(MovePiece2());
     }
 
     private void SetupPieces()
     {
         int i = 0;
+        int ii = 0;
         foreach (Transform child in levelObject.transform.GetChild(0))
         {
             child.gameObject.AddComponent<MeshCollider>();
-            if (OverrideDefaultMat)
+            if (OverrideDefaultMat) // переопределить материал по умолчанию
             {
                 child.gameObject.GetComponent<Renderer>().material = plateMat;
+                
             }
             pieceList.Add(child.gameObject);
-            if (i == 40)
+            pieceListObst.Add(child.gameObject);
+
+            if (i == 40 && loadLevel  == 1)
             {
                 Debug.Log("Arch" + child.rotation);
                 //                child.gameObject.AddComponent<MeshFilter>().mesh.normals
@@ -179,47 +184,47 @@ public class GameManager : MonoBehaviour
                 archObstacle = Instantiate(archObstaclePref, child.position, child.rotation);
  //              archObstacle.transform.parent = child.gameObject.transform;
             }
-            i++;
+            i++;           
         }
 
-//        foreach (Transform child in levelObject.transform.GetChild(1))
-//        {
-//            child.gameObject.AddComponent<MeshCollider>();
-//            if (OverrideDefaultMat)
-//            {
-//                child.gameObject.GetComponent<Renderer>().material = plateMat;
-//            }
-//            pieceList.Add(child.gameObject);
-//           
-//        }
-//
-//        if (levelObject.transform.childCount > 2)
-//        {
-//            foreach (Transform child in levelObject.transform.GetChild(2))
-//            {
-//                child.gameObject.AddComponent<MeshCollider>();
-//                if (OverrideDefaultMat)
-//                {
-//                    child.gameObject.GetComponent<Renderer>().material = plateMat;
-//                }
-//                pieceList.Add(child.gameObject);
-//
-//            }
-//        }
-//
-//        if (levelObject.transform.childCount > 3)
-//        {
-//            foreach (Transform child in levelObject.transform.GetChild(3))
-//            {
-//                child.gameObject.AddComponent<MeshCollider>();
-//                if (OverrideDefaultMat)
-//                {
-//                    child.gameObject.GetComponent<Renderer>().material = plateMat;
-//                }
-//                pieceList.Add(child.gameObject);
-//
-//            }
-//        }
+        //        foreach (Transform child in levelObject.transform.GetChild(1))
+        //        {
+        //            child.gameObject.AddComponent<MeshCollider>();
+        //            if (OverrideDefaultMat)
+        //            {
+        //                child.gameObject.GetComponent<Renderer>().material = plateMat;
+        //            }
+        //            pieceList.Add(child.gameObject);
+        //           
+        //        }
+        //
+        //        if (levelObject.transform.childCount > 2)
+        //        {
+        //            foreach (Transform child in levelObject.transform.GetChild(2))
+        //            {
+        //                child.gameObject.AddComponent<MeshCollider>();
+        //                if (OverrideDefaultMat)
+        //                {
+        //                    child.gameObject.GetComponent<Renderer>().material = plateMat;
+        //                }
+        //                pieceList.Add(child.gameObject);
+        //
+        //            }
+        //        }
+        //
+        //        if (levelObject.transform.childCount > 3)
+        //        {
+        //            foreach (Transform child in levelObject.transform.GetChild(3))
+        //            {
+        //                child.gameObject.AddComponent<MeshCollider>();
+        //                if (OverrideDefaultMat)
+        //                {
+        //                    child.gameObject.GetComponent<Renderer>().material = plateMat;
+        //                }
+        //                pieceList.Add(child.gameObject);
+        //
+        //            }
+        //        }
     }
 
 
@@ -254,6 +259,7 @@ public class GameManager : MonoBehaviour
                         LevelFinished = false;
                         break;
                     }
+
                 }
             }
         }
@@ -346,8 +352,8 @@ public class GameManager : MonoBehaviour
 
     public void animatePiece(GameObject piece)
     {
-        //Sequence s = DOTween.Sequence();
-        //s.Append(piece.transform.DOScale(110f, 0.25f));
+        Sequence s = DOTween.Sequence();
+        s.Append(piece.transform.DOScale(1.1f, 0.25f));
         //s.Append(piece.transform.DOScale(100f, 0.25f));
     }
 
@@ -362,11 +368,31 @@ public class GameManager : MonoBehaviour
         rend.material = pieceMat;
     }
 
-    private void MovePiece(GameObject piece)
-    {
-        if (true)
-        {
 
+
+    IEnumerator  MovePiece2()
+    {
+        int red = UnityEngine.Random.Range(0, pieceListObst.Count);
+
+        yield return new WaitForSeconds(1f);
+
+        if (pieceListObst[old].GetComponent<Renderer>().material.color == Color.green)
+        {
+            pieceListObst[old].GetComponent<Renderer>().material.color = plateMat.color;
         }
+        else if(old != 0)
+        {
+            yield break;
+        }
+       
+
+
+        pieceListObst[red].GetComponent<Renderer>().material.color = Color.green;
+
+
+        old = red;
+
+        StartCoroutine(MovePiece2());
+
     }
 }

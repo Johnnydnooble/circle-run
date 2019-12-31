@@ -9342,7 +9342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e46da6d2d77491789d2c9d78b7c9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadLevel: 1
+  loadLevel: 2
   camera: {fileID: 534669902}
   rotateCameraAxisX: 70
   moveCameraAlongAxisZ: -4
@@ -14210,7 +14210,7 @@ PrefabInstance:
     - target: {fileID: 1598084229972780719, guid: bad8095a141d1e54387ffecfafe2374f,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1598084229972490895, guid: bad8095a141d1e54387ffecfafe2374f,
         type: 3}
@@ -15392,7 +15392,7 @@ PrefabInstance:
     - target: {fileID: 1598084229972780719, guid: bad8095a141d1e54387ffecfafe2374f,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1598084229972490895, guid: bad8095a141d1e54387ffecfafe2374f,
         type: 3}
