@@ -21,11 +21,12 @@ public class CamMove : MonoBehaviour
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         StartCoroutine(FindPlayer());
+//        plate = gameManager.levelArray[gameManager.loadLevel];
     }
 
     void LateUpdate()
     {
-        if (player != null && gameManager.OverrideDefaultCameraMove)
+        if (player != null && plate != null && gameManager.OverrideDefaultCameraMove)
         {
             if (plate.name == "Plate_9_02(Clone)")
             {

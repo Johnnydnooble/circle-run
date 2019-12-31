@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     [Space(5)]
 
     [Header("Plate")]
+//    [SerializeField] GameObject plateObj;
     [SerializeField] bool OverrideDefaultMat;
     [SerializeField] Material plateMat;
     [SerializeField] Color plateColor;
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color backgroundColor;
 
     [Header("Array of levels")]
-    [SerializeField] GameObject[] levelArray = new GameObject[4];
+    [SerializeField] public GameObject[] levelArray = new GameObject[4];
 
     [SerializeField] Color newColor = Color.white;
 
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     private Vector3 radiusToBall;
 
 
-    private Transform[] levelChildren;
+//    private Transform[] levelChildren;
     private List<GameObject> pieceList = new List<GameObject>();
 
     //Materials
@@ -86,7 +87,11 @@ public class GameManager : MonoBehaviour
     bool isPlaying;
     bool isLevelCreated;
     bool LevelFinished;
-    
+
+    // Obstacles
+    [SerializeField] GameObject archObstaclePref;
+    private GameObject archObstacle;
+//    [SerializeField] GameObject pieceObstacle;
 
     private void Awake()
     {
@@ -150,10 +155,13 @@ public class GameManager : MonoBehaviour
  //       levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
  //       SetupPieces();
         bottomLid = levelObject.transform.GetChild(0).gameObject; 
+
+
     }
 
     private void SetupPieces()
     {
+        int i = 0;
         foreach (Transform child in levelObject.transform.GetChild(0))
         {
             child.gameObject.AddComponent<MeshCollider>();
@@ -162,43 +170,56 @@ public class GameManager : MonoBehaviour
                 child.gameObject.GetComponent<Renderer>().material = plateMat;
             }
             pieceList.Add(child.gameObject);
+            if (i == 40)
+            {
+                Debug.Log("Arch" + child.rotation);
+                //                child.gameObject.AddComponent<MeshFilter>().mesh.normals
+
+//                var rot = Quaternion.Euler(Vector3.forward);
+                archObstacle = Instantiate(archObstaclePref, child.position, child.rotation);
+ //              archObstacle.transform.parent = child.gameObject.transform;
+            }
+            i++;
         }
 
-        foreach (Transform child in levelObject.transform.GetChild(1))
-        {
-            child.gameObject.AddComponent<MeshCollider>();
-            if (OverrideDefaultMat)
-            {
-                child.gameObject.GetComponent<Renderer>().material = plateMat;
-            }
-            pieceList.Add(child.gameObject);
-        }
-
-        if (levelObject.transform.childCount > 2)
-        {
-            foreach (Transform child in levelObject.transform.GetChild(2))
-            {
-                child.gameObject.AddComponent<MeshCollider>();
-                if (OverrideDefaultMat)
-                {
-                    child.gameObject.GetComponent<Renderer>().material = plateMat;
-                }
-                pieceList.Add(child.gameObject);
-            }
-        }
-
-        if (levelObject.transform.childCount > 3)
-        {
-            foreach (Transform child in levelObject.transform.GetChild(3))
-            {
-                child.gameObject.AddComponent<MeshCollider>();
-                if (OverrideDefaultMat)
-                {
-                    child.gameObject.GetComponent<Renderer>().material = plateMat;
-                }
-                pieceList.Add(child.gameObject);
-            }
-        }
+//        foreach (Transform child in levelObject.transform.GetChild(1))
+//        {
+//            child.gameObject.AddComponent<MeshCollider>();
+//            if (OverrideDefaultMat)
+//            {
+//                child.gameObject.GetComponent<Renderer>().material = plateMat;
+//            }
+//            pieceList.Add(child.gameObject);
+//           
+//        }
+//
+//        if (levelObject.transform.childCount > 2)
+//        {
+//            foreach (Transform child in levelObject.transform.GetChild(2))
+//            {
+//                child.gameObject.AddComponent<MeshCollider>();
+//                if (OverrideDefaultMat)
+//                {
+//                    child.gameObject.GetComponent<Renderer>().material = plateMat;
+//                }
+//                pieceList.Add(child.gameObject);
+//
+//            }
+//        }
+//
+//        if (levelObject.transform.childCount > 3)
+//        {
+//            foreach (Transform child in levelObject.transform.GetChild(3))
+//            {
+//                child.gameObject.AddComponent<MeshCollider>();
+//                if (OverrideDefaultMat)
+//                {
+//                    child.gameObject.GetComponent<Renderer>().material = plateMat;
+//                }
+//                pieceList.Add(child.gameObject);
+//
+//            }
+//        }
     }
 
 
@@ -220,8 +241,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast                  
-                }
-                            
+                }                            
             }
 
             if (pieceList.Count > 29)
@@ -249,6 +269,13 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WaitForTime());
         }
 
+        if(Input.GetButtonDown("Jump"))
+        {
+            //  StartCoroutine(WaitStartParticle()); // если красим краской
+            Debug.Log(levelArray[_currentLevel].name);
+            StartCoroutine(WaitForTime());
+        }
+
         if (ballPrefab.transform.position.y < -5)
         {
             FailLevel();
@@ -269,8 +296,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         WinLevel();
     }
-
-    private void CheckForLevelCompletion() { }
+    IEnumerator WaitStartParticle()
+    {
+        yield return new WaitForSeconds(35f);
+        StartCoroutine(WaitForTime());
+    }   
 
     public void RestartLevel()
     {
@@ -286,24 +316,6 @@ public class GameManager : MonoBehaviour
         _currentLevel++;
 //        SaveData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void changeColor(GameObject piece)
-    {
-        //Fetch the Renderer
-        Renderer rend = piece.GetComponent<Renderer>();
-
-        pieceList.Remove(piece);
-
-        // rend.material.DOColor(Color.green, 0.5f);
-        rend.material = pieceMat;
-    }
-
-    public void animatePiece(GameObject piece)
-    {
-        //Sequence s = DOTween.Sequence();
-        //s.Append(piece.transform.DOScale(110f, 0.25f));
-        //s.Append(piece.transform.DOScale(100f, 0.25f));
     }
 
     public void WinLevel()
@@ -328,5 +340,33 @@ public class GameManager : MonoBehaviour
     {
         _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 0);
         SaveData();
+    }
+
+    private void CheckForLevelCompletion() { }
+
+    public void animatePiece(GameObject piece)
+    {
+        //Sequence s = DOTween.Sequence();
+        //s.Append(piece.transform.DOScale(110f, 0.25f));
+        //s.Append(piece.transform.DOScale(100f, 0.25f));
+    }
+
+    public void changeColor(GameObject piece)
+    {
+        //Fetch the Renderer
+        Renderer rend = piece.GetComponent<Renderer>();
+
+        pieceList.Remove(piece);
+
+        // rend.material.DOColor(Color.green, 0.5f);
+        rend.material = pieceMat;
+    }
+
+    private void MovePiece(GameObject piece)
+    {
+        if (true)
+        {
+
+        }
     }
 }
