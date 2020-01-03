@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
         backgroundMat.color = backgroundColor;
 
         //Set Material
-        colorMat = Resources.Load("BlueMat", typeof(Material)) as Material;    
+//        colorMat = Resources.Load("PieceMat", typeof(Material)) as Material;    
 
         // plate, piece
  //       levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
@@ -162,29 +162,27 @@ public class GameManager : MonoBehaviour
 
     private void SetupPieces()
     {
-        int i = 0;
-        int ii = 0;
+//        int i = 0;
         foreach (Transform child in levelObject.transform.GetChild(0))
         {
             child.gameObject.AddComponent<MeshCollider>();
             if (OverrideDefaultMat) // переопределить материал по умолчанию
             {
-                child.gameObject.GetComponent<Renderer>().material = plateMat;
-                
+                child.gameObject.GetComponent<Renderer>().material = plateMat;                
             }
             pieceList.Add(child.gameObject);
-            pieceListObst.Add(child.gameObject);
+           pieceListObst.Add(child.gameObject);
 
-            if (i == 40 && loadLevel  == 1)
-            {
-                Debug.Log("Arch" + child.rotation);
-                //                child.gameObject.AddComponent<MeshFilter>().mesh.normals
-
-//                var rot = Quaternion.Euler(Vector3.forward);
-                archObstacle = Instantiate(archObstaclePref, child.position, child.rotation);
- //              archObstacle.transform.parent = child.gameObject.transform;
-            }
-            i++;           
+//--            if (i == 40 && loadLevel  == 1)
+//--            {
+//--                Debug.Log("Arch" + child.rotation);
+//--                //                child.gameObject.AddComponent<MeshFilter>().mesh.normals
+//--
+//--//                var rot = Quaternion.Euler(Vector3.forward);
+//--                archObstacle = Instantiate(archObstaclePref, child.position, child.rotation);
+//-- //              archObstacle.transform.parent = child.gameObject.transform;
+//--            }
+//--            i++;           
         }
 
         //        foreach (Transform child in levelObject.transform.GetChild(1))
@@ -268,7 +266,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log(pieceList.Count);
+         Debug.Log(pieceList.Count);
         if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)")
         {
             Debug.Log(levelArray[_currentLevel].name);
@@ -291,8 +289,7 @@ public class GameManager : MonoBehaviour
         {
             camera.transform.position = new Vector3(0f, zoomCameraAlongAxisY, moveCameraAlongAxisZ);
             camera.transform.rotation = Quaternion.Euler(rotateCameraAxisX, 0f, 0f);
-        }
-        
+        }        
     }
 
     IEnumerator WaitForTime()
@@ -301,11 +298,6 @@ public class GameManager : MonoBehaviour
         confettiParticle.SetActive(true);
         yield return new WaitForSeconds(2f);
         WinLevel();
-    }
-    IEnumerator WaitStartParticle()
-    {
-        yield return new WaitForSeconds(35f);
-        StartCoroutine(WaitForTime());
     }   
 
     public void RestartLevel()
@@ -353,7 +345,7 @@ public class GameManager : MonoBehaviour
     public void animatePiece(GameObject piece)
     {
         Sequence s = DOTween.Sequence();
-        s.Append(piece.transform.DOScale(1.1f, 0.25f));
+ //       s.Append(piece.transform.DOScale(1.1f, 0.25f));
         //s.Append(piece.transform.DOScale(100f, 0.25f));
     }
 
@@ -368,8 +360,6 @@ public class GameManager : MonoBehaviour
         rend.material = pieceMat;
     }
 
-
-
     IEnumerator  MovePiece2()
     {
         int red = UnityEngine.Random.Range(0, pieceListObst.Count);
@@ -383,16 +373,12 @@ public class GameManager : MonoBehaviour
         else if(old != 0)
         {
             yield break;
-        }
-       
-
+        }     
 
         pieceListObst[red].GetComponent<Renderer>().material.color = Color.green;
-
 
         old = red;
 
         StartCoroutine(MovePiece2());
-
     }
 }

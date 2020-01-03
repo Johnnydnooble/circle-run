@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d4a8bc42d10b742488c46c1c211d6b5b, type: 2}
+  - {fileID: 2100000, guid: a1d2cf8e97f384420b2afbbc7e1267da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
     rotateAngle: 0
     brushNormalBlend: 0.128
     brushHeightBlend: 0
-    brushColor: {r: 0, g: 0.035513878, b: 1, a: 1}
+    brushColor: {r: 1, g: 1, b: 1, a: 1}
     colorBlendType: 0
     normalBlendType: 0
     heightBlendType: 0

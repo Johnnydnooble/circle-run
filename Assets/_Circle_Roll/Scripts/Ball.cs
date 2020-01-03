@@ -24,4 +24,12 @@ public class Ball : MonoBehaviour
            gameManager.animatePiece(collision.gameObject);
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {        
+        if (other.tag == "Obstacle")
+        {
+           gameManager.FailLevel();
+        }
+    }
 }
