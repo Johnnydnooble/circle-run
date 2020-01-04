@@ -88,11 +88,14 @@ public class GameManager : MonoBehaviour
     bool isLevelCreated;
     bool LevelFinished;
 
-    // Obstacles
+    [Header("Obstacle")]
     [SerializeField] GameObject archObstaclePref;
-    private GameObject archObstacle;
-    //    [SerializeField] GameObject pieceObstacle;
+    private GameObject archObstacle;   
     int old = 0;
+    [SerializeField] bool ActivateMovingPiece;
+//    [SerializeField] bool ActivateMovingBlock;
+//    [SerializeField] bool ActivateMovingBall;
+
 
     private void Awake()
     {
@@ -157,7 +160,11 @@ public class GameManager : MonoBehaviour
  //       SetupPieces();
         bottomLid = levelObject.transform.GetChild(0).gameObject;
 
+        if (ActivateMovingPiece)
+        {
             StartCoroutine(MovePiece2());
+        }
+          
     }
 
     private void SetupPieces()
@@ -236,10 +243,12 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                Debug.Log("Force to ball applied");
+                Debug.Log("tangent " + tangent);
                 if (OverrideDefaultSpeedBall)
                 {
-                    rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
+                    // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
+                    rb.AddForce(tangent * 20f, ForceMode.Acceleration); 
+//                    rb.AddForce(tangent * .4f, ForceMode.VelocityChange); 
                 }
                 else
                 {
@@ -266,7 +275,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-         Debug.Log(pieceList.Count);
+//         Debug.Log(pieceList.Count);
         if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)")
         {
             Debug.Log(levelArray[_currentLevel].name);
@@ -360,7 +369,7 @@ public class GameManager : MonoBehaviour
         rend.material = pieceMat;
     }
 
-    IEnumerator  MovePiece2()
+    IEnumerator  MovePiece2() // 
     {
         int red = UnityEngine.Random.Range(0, pieceListObst.Count);
 
