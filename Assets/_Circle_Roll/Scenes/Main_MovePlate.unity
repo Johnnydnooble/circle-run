@@ -9294,14 +9294,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.46252248, y: 0, z: 0, w: 0.8866076}
-  m_LocalPosition: {x: 0, y: 20, z: -8.8}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 25, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2097245622}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 55.1, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!114 &534669908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9501,8 +9501,8 @@ MonoBehaviour:
   camera: {fileID: 534669902}
   rotateCameraAxisX: 70
   moveCameraAlongAxisZ: -4
-  zoomCameraAlongAxisY: 20
-  OverrideDefaultCameraMove: 0
+  zoomCameraAlongAxisY: 25
+  OverrideDefaultCameraMove: 1
   gamePanel: {fileID: 1979098942}
   textCurrent: {fileID: 830038353}
   winPanel: {fileID: 1361673414}
@@ -9536,7 +9536,7 @@ MonoBehaviour:
   angle: 0
   speed: 5
   radius: 1.5
-  isCircle: 1
+  isCircle: 0
   cachedCenter: {x: 0, y: 0, z: 0}
 --- !u!4 &656794273
 Transform:

@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
     {
 //        if (resetLevel)
 //        {
-//            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня)
+//            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
 //            resetLevel = false;
 //        }
 
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         InitSaves();
         if (_currentLevel >= levelArray.Length)
         {
-            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня если закончились уровни)
+            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня, если закончились уровни)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -150,6 +150,7 @@ public class GameManager : MonoBehaviour
         if (loadLevel == 4)
         {
             ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
+
         }
         else
         {
@@ -267,29 +268,20 @@ public class GameManager : MonoBehaviour
 
                                                 rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
 
-                    //                    rbLevel.AddForce(new Vector3(Mathf.Clamp(1f, 0f, .2f), 0f, Mathf.Clamp(1f, 0f, .2f)) * .1f, ForceMode.VelocityChange);
-                    //                    rbLevel.AddForce(transform.up * 5f);
-
-                    if (isCircle)
-                    {
+                        if (cachedCenter.x <= radius) // плавно выравниваем plate по центру экрана
+                        {
+                            cachedCenter.x += 0.1f;
+                        }
+                       
                         angle += Time.deltaTime;
                         var x = Mathf.Cos(angle * speed) * radius;
                         var z = Mathf.Sin(angle * speed) * radius;
-                        levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f);
-                    }
-                    else
-                    {
-                        angle = 0;
-                        cachedCenter = levelObject.transform.position;
-                        var x = levelObject.transform.position.x;
-                        var z = levelObject.transform.position.z;
-                        x += 0.5f * Time.deltaTime;
+                    levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f); // Vector3(radius, 0f, 0f)  плавно начинаем
 
-                        levelObject.transform.position = new Vector3(x, 0f, z);
-                    }
 
                     //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
                     //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
+
                     //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
                     //                    levelObject.transform.rotation *= rotationY;
                 }
@@ -351,6 +343,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         WinLevel();
     }
+
+ //   IEnumerator InstantiateBallInkPaintPrefab()
+ //   {
+ //       ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
+ //       yield return new WaitForSeconds(1f);
+ //   }
 
     public void RestartLevel()
     {
