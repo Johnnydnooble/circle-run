@@ -73,7 +73,8 @@ public class GameManager : MonoBehaviour
     private GameObject bottomLid;
     private GameObject levelObject;
     private Rigidbody rb;
-   
+    private Rigidbody rbLevel;
+
     private Vector3 radiusToBall;
 
 
@@ -93,8 +94,19 @@ public class GameManager : MonoBehaviour
     private GameObject archObstacle;   
     int old = 0;
     [SerializeField] bool ActivateMovingPiece;
-//    [SerializeField] bool ActivateMovingBlock;
-//    [SerializeField] bool ActivateMovingBall;
+    //    [SerializeField] bool ActivateMovingBlock;
+    //    [SerializeField] bool ActivateMovingBall;
+
+
+    public float angle = 0;
+
+    public float speed = 1;
+    public float radius = 0.5f;
+    public bool isCircle = false;
+
+    // запоминать свое нахождение и делать его центром окружности
+    public Vector3 cachedCenter;
+
 
 
     private void Awake()
@@ -145,6 +157,7 @@ public class GameManager : MonoBehaviour
         }
        
         rb = ballPrefab.GetComponent<Rigidbody>();
+        rbLevel = levelObject.GetComponent<Rigidbody>();
 
         //set color
         ballPrefab.GetComponent<Renderer>().material.color = ballColor;
@@ -164,7 +177,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(MovePiece2());
         }
-          
+
     }
 
     private void SetupPieces()
@@ -239,7 +252,8 @@ public class GameManager : MonoBehaviour
         if (bottomLid != null)
         {
             radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
-            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
+            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall).normalized;
+//            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
 
             if (Input.GetMouseButton(0))
             {
@@ -247,8 +261,37 @@ public class GameManager : MonoBehaviour
                 if (OverrideDefaultSpeedBall)
                 {
                     // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
-                    rb.AddForce(tangent * 20f, ForceMode.Acceleration); 
-//                    rb.AddForce(tangent * .4f, ForceMode.VelocityChange); 
+                    //                                       rb.AddForce(tangent * 10f, ForceMode.Acceleration); 
+                    //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
+                    //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
+
+                                                rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
+
+                    //                    rbLevel.AddForce(new Vector3(Mathf.Clamp(1f, 0f, .2f), 0f, Mathf.Clamp(1f, 0f, .2f)) * .1f, ForceMode.VelocityChange);
+                    //                    rbLevel.AddForce(transform.up * 5f);
+
+                    if (isCircle)
+                    {
+                        angle += Time.deltaTime;
+                        var x = Mathf.Cos(angle * speed) * radius;
+                        var z = Mathf.Sin(angle * speed) * radius;
+                        levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f);
+                    }
+                    else
+                    {
+                        angle = 0;
+                        cachedCenter = levelObject.transform.position;
+                        var x = levelObject.transform.position.x;
+                        var z = levelObject.transform.position.z;
+                        x += 0.5f * Time.deltaTime;
+
+                        levelObject.transform.position = new Vector3(x, 0f, z);
+                    }
+
+                    //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
+                    //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
+                    //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
+                    //                    levelObject.transform.rotation *= rotationY;
                 }
                 else
                 {
@@ -307,7 +350,7 @@ public class GameManager : MonoBehaviour
         confettiParticle.SetActive(true);
         yield return new WaitForSeconds(2f);
         WinLevel();
-    }   
+    }
 
     public void RestartLevel()
     {

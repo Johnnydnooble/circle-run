@@ -9423,7 +9423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e46da6d2d77491789d2c9d78b7c9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadLevel: 1
+  loadLevel: 4
   camera: {fileID: 534669902}
   rotateCameraAxisX: 70
   moveCameraAlongAxisZ: -4
@@ -15112,6 +15112,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plate_4_01_
       objectReference: {fileID: 0}
+    - target: {fileID: 1453966087477142675, guid: c92f1abadc1ea844b860287b4faff99e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8853398117311604093, guid: c92f1abadc1ea844b860287b4faff99e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16013,7 +16018,7 @@ PrefabInstance:
     - target: {fileID: 1344733616400437967, guid: 5399388c1875b7e4bab6b8e8a1b0019d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6673821051119093613, guid: 5399388c1875b7e4bab6b8e8a1b0019d,
         type: 3}

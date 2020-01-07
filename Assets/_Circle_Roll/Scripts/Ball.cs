@@ -5,7 +5,8 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     GameManager gameManager;
-    
+    private GameObject parent;
+
     void Start()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
@@ -26,10 +27,17 @@ public class Ball : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {        
+    {
+       
         if (other.tag == "Obstacle")
         {
            gameManager.FailLevel();
+        }
+        if(other.tag == "Plate")
+        {
+            Debug.Log("!!!! " + other.name);
+            parent = other.gameObject; // GameObject.Find("ConveyourBelt(Clone)");
+            transform.parent = parent.transform;
         }
     }
 }
