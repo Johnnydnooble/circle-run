@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Es.InkPainter;
 
     [CustomEditor(typeof(GameManager))]
 public class ModEditor : Editor

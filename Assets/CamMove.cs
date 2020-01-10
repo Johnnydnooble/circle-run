@@ -3,53 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CamMove : MonoBehaviour
+namespace Es.InkPainter
 {
-
- //   public GameObject Player;
-
-    private Vector3 offset;
-    [SerializeField] private float smooth = 0.5f;
-
-    [SerializeField] private Transform player; // Reference to the player's transform.
-    [SerializeField] private GameObject plate;
-
-    private GameManager gameManager;
-
-
-    void Start()
+    public class CamMove : MonoBehaviour
     {
-        gameManager = GameObject.FindObjectOfType<GameManager>();
-        StartCoroutine(FindPlayer());
-//        plate = gameManager.levelArray[gameManager.loadLevel];
-    }
 
-    void LateUpdate()
-    {
-        if (player != null && plate != null && gameManager.OverrideDefaultCameraMove)
+        //   public GameObject Player;
+
+        private Vector3 offset;
+        [SerializeField] private float smooth = 0.5f;
+
+        [SerializeField] private Transform player; // Reference to the player's transform.
+        [SerializeField] private GameObject plate;
+
+        private GameManager gameManager;
+
+
+        void Start()
         {
-            if (plate.name == "Plate_9_02(Clone)")
-            {
-                Debug.Log(plate.name);
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * 2) + offset.y, transform.position.z), Time.deltaTime * smooth);
-            }
-            else //if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 2)
-            {
-                Debug.Log("It's not a Plate_9_02(Clone)");
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + offset.y, transform.position.z), Time.deltaTime * smooth);
-            }
-        }          
-    }
+            gameManager = GameObject.FindObjectOfType<GameManager>();
+            StartCoroutine(FindPlayer());
+            //        plate = gameManager.levelArray[gameManager.loadLevel];
+        }
 
-    IEnumerator FindPlayer()
-    {
-        yield return new WaitForSeconds(1f);
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        plate = GameObject.FindGameObjectWithTag("Plate");
-        offset = transform.position - player.transform.position;
+        void LateUpdate()
+        {
+            if (player != null && plate != null && gameManager.OverrideDefaultCameraMove)
+            {
+                if (plate.name == "Plate_9_02(Clone)")
+                {
+                    Debug.Log(plate.name);
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * 2) + offset.y, transform.position.z), Time.deltaTime * smooth);
+                }
+                else //if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 2)
+                {
+                    Debug.Log("It's not a Plate_9_02(Clone)");
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + offset.y, transform.position.z), Time.deltaTime * smooth);
+                }
+            }
+        }
+
+        IEnumerator FindPlayer()
+        {
+            yield return new WaitForSeconds(1f);
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            plate = GameObject.FindGameObjectWithTag("Plate");
+            offset = transform.position - player.transform.position;
+        }
     }
 }
-
 
 
 

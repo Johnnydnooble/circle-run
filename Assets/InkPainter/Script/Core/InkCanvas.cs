@@ -62,7 +62,7 @@ namespace Es.InkPainter
 			/// </summary>
 			[HideInInspector]
 			[NonSerialized]
-			public RenderTexture paintMainTexture;
+			public RenderTexture paintMainTexture; //=
 
 			/// <summary>
 			/// In the first time set to the material's normal map.
@@ -195,7 +195,7 @@ namespace Es.InkPainter
 		#region SerializedField
 
 		[SerializeField]
-		private List<PaintSet> paintSet = null;
+		public List<PaintSet> paintSet = null;
 
 		#endregion SerializedField
 
@@ -320,7 +320,8 @@ namespace Es.InkPainter
 		/// </summary>
 		private void InitPropertyID()
 		{
-			foreach(var p in paintSet)
+//            Debug.Log("+++" + paintSet.Count);
+            foreach (var p in paintSet)
 			{
 				p.mainTexturePropertyID = Shader.PropertyToID(p.mainTextureName);
 				p.normalTexturePropertyID = Shader.PropertyToID(p.normalTextureName);
@@ -381,8 +382,8 @@ namespace Es.InkPainter
 		/// <param name="material">material.</param>
 		private RenderTexture SetupRenderTexture(Texture baseTex, int propertyID, Material material)
 		{
-			var rt = new RenderTexture(baseTex.width, baseTex.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
-			rt.filterMode = baseTex.filterMode;
+			var rt = new RenderTexture(baseTex.width, baseTex.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB); // заменил Linear на 
+            rt.filterMode = baseTex.filterMode;
 			Graphics.Blit(baseTex, rt);
 			material.SetTexture(propertyID, rt);
 			return rt;
@@ -391,7 +392,7 @@ namespace Es.InkPainter
 		/// <summary>
 		/// Creates a rendertexture and set the material.
 		/// </summary>
-		private void SetRenderTexture()
+		private void SetRenderTexture() //====
 		{
 			foreach(var p in paintSet)
 			{
@@ -905,8 +906,8 @@ namespace Es.InkPainter
 		/// </summary>
 		/// <param name="materialName">Material name.</param>
 		/// <returns>Original normal map.</returns>
-		public Texture GetNormalTexture(string materialName)
-		{
+		public Texture GetNormalTexture(string materialName) 
+        {
 			materialName = materialName.Replace(" (Instance)", "");
 			var data = paintSet.FirstOrDefault(p => p.material.name.Replace(" (Instance)", "") == materialName);
 			if(data == null)
@@ -992,25 +993,29 @@ namespace Es.InkPainter
 			data.paintHeightTexture = newTexture;
 			data.material.SetTexture(data.heightTextureName, data.paintHeightTexture);
 			data.useHeightPaint = true;
-		}
 
-		#endregion PublicMethod
+        }
 
-		#region CustomEditor
+        #endregion PublicMethod
+
+        #region CustomEditor
 
 #if UNITY_EDITOR
-
+       
 		[CustomEditor(typeof(InkCanvas))]
 		[CanEditMultipleObjects]
-		private class InkCanvasInspectorExtension : Editor
+		public class InkCanvasInspectorExtension : Editor
 		{
+
 			private Renderer renderer;
 			private Material[] materials;
 			private List<bool> foldOut;
+            public static InkCanvas instance;
 
-			public override void OnInspectorGUI()
+            public override void OnInspectorGUI()
 			{
-				var instance = target as InkCanvas;
+
+                instance = target as InkCanvas;
 				if(instance.paintSet == null)
 					instance.paintSet = new List<PaintSet>();
 
@@ -1154,6 +1159,8 @@ namespace Es.InkPainter
 
 					#endregion Property Setting
 				}
+
+              
 			}
 
 			private void SaveRenderTextureToPNG(string textureName, RenderTexture renderTexture, Action<TextureImporter> importAction = null)

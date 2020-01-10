@@ -2,42 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+namespace Es.InkPainter
 {
-    GameManager gameManager;
-    private GameObject parent;
-
-    void Start()
+    public class Ball : MonoBehaviour
     {
-        gameManager = GameObject.FindObjectOfType<GameManager>();
-    }
+        GameManager gameManager;
+        private GameObject parent;
 
-    
-    void Update() { }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //       GameObject.FindObjectOfType<CameraMovement>().SetOffset(collision.gameObject);        
-        if (gameObject.name != "BallInkPaint(Clone)")
+        void Start()
         {
-           gameManager.changeColor(collision.gameObject);
-           gameManager.animatePiece(collision.gameObject);
+            gameManager = GameObject.FindObjectOfType<GameManager>();
         }
-    }
 
-    void OnTriggerEnter(Collider other)
-    {
-       
-        if (other.tag == "Obstacle")
+
+        void Update() { }
+
+
+        private void OnCollisionEnter(Collision collision)
         {
-           gameManager.FailLevel();
+            //       GameObject.FindObjectOfType<CameraMovement>().SetOffset(collision.gameObject);        
+            if (gameObject.name != "BallInkPaint(Clone)")
+            {
+                gameManager.changeColor(collision.gameObject);
+                gameManager.animatePiece(collision.gameObject);
+            }
         }
-        if(other.tag == "Plate")
+
+        void OnTriggerEnter(Collider other)
         {
-            Debug.Log("!!!! " + other.name);
-            parent = other.gameObject; // GameObject.Find("ConveyourBelt(Clone)");
-            transform.parent = parent.transform;
+
+            if (other.tag == "Obstacle")
+            {
+                gameManager.FailLevel();
+            }
+            if (other.tag == "Plate")
+            {
+                Debug.Log("!!!! " + other.name);
+                parent = other.gameObject; // GameObject.Find("ConveyourBelt(Clone)");
+                transform.parent = parent.transform;
+            }
         }
     }
 }
