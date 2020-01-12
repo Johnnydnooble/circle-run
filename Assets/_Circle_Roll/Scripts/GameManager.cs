@@ -20,11 +20,11 @@ namespace Es.InkPainter
 {
     public class GameManager : MonoBehaviour
     {
-        //    [Header("ResetLevel")]
-        //    [SerializeField]public bool resetLevel;
-        [Header("load Level 1 - 4")]
-        [Range(1, 4)]
-        [SerializeField] public int loadLevel;
+        [Header("ResetLevel")]
+        private bool resetLevel;
+        //        [Header("load Level 1 - 30")]
+        //        [Range(1, 30)]
+ //       private int loadLevel;
 
         // Level
         private int _currentLevel;
@@ -75,7 +75,7 @@ namespace Es.InkPainter
         [SerializeField] Color backgroundColor;
 
         [Header("Array of levels")]
-        [SerializeField] public GameObject[] levelArray = new GameObject[4];
+        [SerializeField] public GameObject[] levelArray = new GameObject[30];
 
         [SerializeField] Color newColor = Color.white;
 
@@ -109,14 +109,12 @@ namespace Es.InkPainter
         //    [SerializeField] bool ActivateMovingBall;
 
 
-        public float angle = 0;
+        private float angle = 0f;
+        private float speed = 5f;
+        private float radius = 0f;
+        private Vector3 startPlateCenter;
+        private bool inOut = true;
 
-        public float speed = 1;
-        public float radius = 0.5f;
-        public bool isCircle = false;
-
-        // запоминать свое нахождение и делать его центром окружности
-        public Vector3 cachedCenter;
         private Mesh mesh;
         private MeshCollider meshCol;
 
@@ -126,39 +124,40 @@ namespace Es.InkPainter
         [Range(2, 64)]
         public int resolution = 32;
         private Texture2D texture2D;
- //       private RenderTexture sourceTex;
-       private Coroutine cor;
+        //       private RenderTexture sourceTex;
+        private Coroutine coroutinePixelColor;
 
         private void Awake()
         {
-            //        if (resetLevel)
-            //        {
-            //            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
-            //            resetLevel = false;
-            //        }
+            //            if (resetLevel)
+            //            {
+            //                PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
+            //                resetLevel = false;
+            //            }
 
-            if (loadLevel != _currentLevel && loadLevel > _currentLevel)  // 
-            {
-                _currentLevel = (loadLevel - 1);
-                levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
-                PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
-            }
-            else
-            {
-                levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
-                PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
-            }
-
-            Time.timeScale = 1;
+            //=           if (loadLevel != _currentLevel && loadLevel > _currentLevel)  // 
+            //=           {
+            //=               _currentLevel = (loadLevel);
+            //=               levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+            //=               PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+            //=           }
+            //=           else
+            //=           {
+            
 
             InitSaves();
-            if (_currentLevel >= levelArray.Length)
+            PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+            if ((_currentLevel + 1) >= levelArray.Length)
             {
-                PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс уровня, если закончились уровни)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Reset();
             }
+            levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
 
-            SetupPieces();
+            //=            }
+
+            Time.timeScale = 1;          
+
+            //            SetupPieces();
             bottomLid = levelObject.transform.GetChild(0).gameObject;
         }
 
@@ -167,18 +166,18 @@ namespace Es.InkPainter
             // level
             textCurrent.text = (_currentLevel + 1).ToString();
             //instantiate ball at initial position
-            if (loadLevel == 4)
-            {
-                ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
-                rb = ballPrefab.GetComponent<Rigidbody>();
-                //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
+            //=           if (loadLevel > 0)
+            //=           {
+            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
+            rb = ballPrefab.GetComponent<Rigidbody>();
+            //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
 
-                inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
-            }
-            else
-            {
-                ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
-            }
+            inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
+                                                                                     //=            }
+                                                                                     //            else
+                                                                                     //            {
+                                                                                     //                ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
+                                                                                     //            }
 
             rbLevel = levelObject.GetComponent<Rigidbody>();
 
@@ -200,12 +199,11 @@ namespace Es.InkPainter
             {
                 StartCoroutine(MovePiece2());
             }
-          
-            if (cor == null)
+
+            if (coroutinePixelColor == null)
             {
-                cor = StartCoroutine(PixelColor());
+                coroutinePixelColor = StartCoroutine(PixelColor());
             }
-        
         }
 
         private void SetupPieces()
@@ -297,17 +295,21 @@ namespace Es.InkPainter
                         //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
                         //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
 
-#region PlateMove
-                        if (cachedCenter.x <= radius) // плавно выравниваем plate по центру экрана
-                        {
-                            cachedCenter.x += 0.1f;
-                        }
+                        #region PlateMove
 
-                        angle += Time.deltaTime;
-                        var x = Mathf.Cos(angle * speed) * radius;
-                        var z = Mathf.Sin(angle * speed) * radius;
-                        levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f); // Vector3(radius, 0f, 0f)  плавно начинаем
-#endregion PlateMove
+                        //                       if (cachedCenter.x <= radius) // плавно выравниваем plate по центру экрана
+                        //                       {
+                        //                           cachedCenter.x += 0.1f;
+                        //                       }
+                        //
+                        //                       angle += Time.deltaTime;
+                        //                       var x = Mathf.Cos(angle * speed) * radius;
+                        //                       var z = Mathf.Sin(angle * speed) * radius;
+                        //                       Debug.Log(x);
+                        //
+                        //                       levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f); // Vector3(radius, 0f, 0f)  плавно начинаем
+
+                        #endregion PlateMove
 
                         //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
                         //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
@@ -321,48 +323,61 @@ namespace Es.InkPainter
                     }
                 }
 
-                if (pieceList.Count > 29)
+                if (Input.GetMouseButton(0))
                 {
-                    LevelFinished = true;
-                    foreach (GameObject piece in pieceList)
+                    if (inOut)
                     {
-                        if (piece.GetComponent<Renderer>().material.color != Color.green)
-                        {
-                            LevelFinished = false;
-                            break;
-                        }
+                        radius = 0f;
+                        inOut = false;
+                    }
+                    radius = Mathf.Lerp(radius, 1f, Time.deltaTime * 3f);
+                    angle += Time.deltaTime;
+                    var x = Mathf.Cos(angle * speed) * radius;
+                    var z = Mathf.Sin(angle * speed) * radius;
+                    levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
+                }
+                else
+                {
+                    radius = Mathf.Lerp(radius, 0f, Time.deltaTime * 3f);
+                    angle += Time.deltaTime;
+                    var x = Mathf.Cos(angle * speed) * radius;
+                    var z = Mathf.Sin(angle * speed) * radius;
+                    levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
 
+                    inOut = true;
+                }
+            }
+
+
+            if (pieceList.Count > 29)
+            {
+                LevelFinished = true;
+                foreach (GameObject piece in pieceList)
+                {
+                    if (piece.GetComponent<Renderer>().material.color != Color.green)
+                    {
+                        LevelFinished = false;
+                        break;
                     }
                 }
             }
         }
 
 
+
         private void Update()
         {
-            if (inkCanvas.PaintDatas.FirstOrDefault().paintMainTexture != null)
-            {
- //               Texture tex = inkCanvas.PaintDatas.FirstOrDefault().paintMainTexture; // получить текстуру из памяти
-
-
- //            StartCoroutine(PixelColor());
-
-                // Texture sourceTex_ = levelObject.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture; // 2 вариант доступа к текстуре
-                // GetComponent<MeshRenderer>().material.mainTexture = sourceTex_;
-            }
-
-
-            if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
-            {
-                StartCoroutine(WaitForTime());
-            }
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                //  StartCoroutine(WaitStartParticle()); // если красим краской
-                Debug.Log(levelArray[_currentLevel].name);
-                StartCoroutine(WaitForTime());
-            }
+  //           if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
+ //           {
+ //               //                StartCoroutine(WaitForTime());
+ //           }
+ //
+ //           if (Input.GetButtonDown("Jump"))
+ //           {
+ //               //  StartCoroutine(WaitStartParticle()); // если красим краской
+ //               //                Debug.Log(levelArray[_currentLevel].name);
+ //               StartCoroutine(WaitForTime());
+ //           }
 
             if (ballPrefab.transform.position.y < -5)
             {
@@ -380,18 +395,16 @@ namespace Es.InkPainter
         {
             yield return new WaitForSeconds(2f);
             RenderTexture sourceTex = inkCanvas.PaintDatas.FirstOrDefault().paintMainTexture; // получить текстуру из памяти
- //           var sourceTex = inkCanvas.PaintDatas.FirstOrDefault().material.mainTexture as Texture2D; // получить текстуру из памяти
+                                                                                              //           RenderTexture sourceTex = levelObject.transform.GetChild(0).GetComponent<RenderTexture>(); // 2 вариант доступа к текстуре - доделать
+                                                                                              //           var sourceTex = inkCanvas.PaintDatas.FirstOrDefault().material.mainTexture as Texture2D; // 3 вар получить текстуру из памяти - доделать
 
- //           GetComponent<MeshRenderer>().material.mainTexture = sourceTex; // посмотреть текстуру
+            //           GetComponent<MeshRenderer>().material.mainTexture = sourceTex; // посмотреть текстуру
 
             texture2D = new Texture2D(resolution, resolution, TextureFormat.RGB24, false); // создаем текстуру2D
             texture2D.filterMode = FilterMode.Point;
 
-            RenderTexture scaleTex = new RenderTexture(resolution, resolution, 0);
-//            Vector2 scaleVect = new Vector2(sourceTex.width / resolution, sourceTex.height / resolution);
-
-//            Graphics.Blit(sourceTex, scaleTex, scaleVect, Vector2.zero);
-            Graphics.Blit(sourceTex, scaleTex);
+            RenderTexture scaleTex = new RenderTexture(resolution, resolution, 0); // Создаем новую  RenderTexture с меньшим разрешением
+            Graphics.Blit(sourceTex, scaleTex); // копируем настройки и шейдер
             RenderTexture.active = scaleTex;      // загружаем текстуру в рендер
 
             texture2D.ReadPixels(new Rect(0, 0, resolution, resolution), 0, 0); // из рендера  RenderTexture - загружаем в texture2D
@@ -402,7 +415,7 @@ namespace Es.InkPainter
             int countPixel = 0;
             for (int i = 0; i < pixels.Length; i++)
             {
-//                Debug.Log(i + "Pixels " + pixels[i]);
+                //                Debug.Log(i + "Pixels " + pixels[i]);
                 if (pixels[i].r < 0.200 && pixels[i].g < 0.200 && pixels[i].b > 0.800)
                 {
                     countPixel++;
@@ -433,34 +446,7 @@ namespace Es.InkPainter
             RenderTexture.active = null; // очистить времменую  RenderTexture
 
             StartCoroutine(PixelColor());
-            cor = null; // удалить карутину
-        }
-
-//        private void OnEnable()
-//        {
-// //           sourceTex = levelObject.transform.GetChild(0).GetComponent<Renderer>().material.mainTexture;
-//            RenderTexture sourceTex = inkCanvas.PaintDatas.FirstOrDefault().paintMainTexture; // получить текстуру из памяти
-
-//            texture = new Texture2D(resolution, resolution, TextureFormat.RGB24, false);
-//            RenderTexture.active = sourceTex;
-
-//            texture.name = "Procedural Texture";
-//            texture.wrapMode = TextureWrapMode.Clamp;
-//            texture.filterMode = FilterMode.Trilinear; // FilterMode.Point;
-//            texture.ReadPixels(new Rect(0, 0, resolution, resolution), 0, 0);
-////            texture.Apply();
-
-//            //int index = 1;
-//            //           Debug.Log(index + " ... " + tex2D.GetPixel(index, index));
-                       
-//            GetComponent<MeshRenderer>().material.mainTexture = sourceTex;
-//            FillTexture();
-//        }
-
-        private void FillTexture()
-        {
-            //            float stepSize = 1f / resolution;
-           
+            coroutinePixelColor = null; // удалить карутину
         }
 
         IEnumerator WaitForTime()
@@ -490,12 +476,21 @@ namespace Es.InkPainter
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        public void Reset()
+        {
+                PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
+//                resetLevel = false;
+ 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         public void NextLevel()
         {
             Time.timeScale = 1;
 
             _currentLevel++;
-            //        SaveData();
+
+            SaveData();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -514,7 +509,7 @@ namespace Es.InkPainter
         private void SaveData() // сохранить 
         {
             PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
-            Debug.Log("CurrentLevel  " + _currentLevel);
+            //            Debug.Log("CurrentLevel  " + _currentLevel);
         }
 
         private void InitSaves() // получить 
