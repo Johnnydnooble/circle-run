@@ -13,9 +13,6 @@ using Es.InkPainter.Effective;
 using Es;
 using Es.InkPainter;
 
-
-
-
 namespace Es.InkPainter
 {
     public class GameManager : MonoBehaviour
@@ -24,7 +21,8 @@ namespace Es.InkPainter
         private bool resetLevel;
         //        [Header("load Level 1 - 30")]
         //        [Range(1, 30)]
- //       private int loadLevel;
+        //       private int loadLevel;
+        private bool newGamePlay = true;
 
         // Level
         private int _currentLevel;
@@ -143,7 +141,7 @@ namespace Es.InkPainter
             //=           }
             //=           else
             //=           {
-            
+
 
             InitSaves();
             PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
@@ -155,7 +153,7 @@ namespace Es.InkPainter
 
             //=            }
 
-            Time.timeScale = 1;          
+            Time.timeScale = 1;
 
             //            SetupPieces();
             bottomLid = levelObject.transform.GetChild(0).gameObject;
@@ -280,73 +278,83 @@ namespace Es.InkPainter
                 radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
                 Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall).normalized;
                 //            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
-
-                if (Input.GetMouseButton(0))
+                if (newGamePlay)
                 {
-                    //                    Debug.Log("tangent " + tangent);
-                    if (OverrideDefaultSpeedBall)
+                    if (Input.GetMouseButton(0))
                     {
-                        // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
-                        //                                       rb.AddForce(tangent * 10f, ForceMode.Acceleration); 
-                        //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
-                        //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
+                        //                    Debug.Log("tangent " + tangent);
+                        if (OverrideDefaultSpeedBall)
+                        {
+                            // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
+                            //                                       rb.AddForce(tangent * 10f, ForceMode.Acceleration); 
+                            //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
+                            //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
 
-                        rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
-                        //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
-                        //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                            rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                            //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                            //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
 
-                        #region PlateMove
+                            #region PlateMove
 
-                        //                       if (cachedCenter.x <= radius) // плавно выравниваем plate по центру экрана
-                        //                       {
-                        //                           cachedCenter.x += 0.1f;
-                        //                       }
-                        //
-                        //                       angle += Time.deltaTime;
-                        //                       var x = Mathf.Cos(angle * speed) * radius;
-                        //                       var z = Mathf.Sin(angle * speed) * radius;
-                        //                       Debug.Log(x);
-                        //
-                        //                       levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f); // Vector3(radius, 0f, 0f)  плавно начинаем
+                            //                       if (cachedCenter.x <= radius) // плавно выравниваем plate по центру экрана
+                            //                       {
+                            //                           cachedCenter.x += 0.1f;
+                            //                       }
+                            //
+                            //                       angle += Time.deltaTime;
+                            //                       var x = Mathf.Cos(angle * speed) * radius;
+                            //                       var z = Mathf.Sin(angle * speed) * radius;
+                            //                       Debug.Log(x);
+                            //
+                            //                       levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f); // Vector3(radius, 0f, 0f)  плавно начинаем
 
-                        #endregion PlateMove
+                            #endregion PlateMove
 
-                        //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
-                        //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
+                            //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
+                            //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
 
-                        //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
-                        //                    levelObject.transform.rotation *= rotationY;
+                            //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
+                            //                    levelObject.transform.rotation *= rotationY;
+                        }
+                        else
+                        {
+                            rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast                  
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0))
+                    {
+                        if (inOut)
+                        {
+                            radius = 0f;
+                            inOut = false;
+                        }
+                        radius = Mathf.Lerp(radius, 1f, Time.deltaTime * 3f);
+                        angle += Time.deltaTime;
+                        var x = Mathf.Cos(angle * speed) * radius;
+                        var z = Mathf.Sin(angle * speed) * radius;
+                        levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
                     }
                     else
                     {
-                        rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast                  
-                    }
-                }
+                        radius = Mathf.Lerp(radius, 0f, Time.deltaTime * 3f);
+                        angle += Time.deltaTime;
+                        var x = Mathf.Cos(angle * speed) * radius;
+                        var z = Mathf.Sin(angle * speed) * radius;
+                        levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
 
-                if (Input.GetMouseButton(0))
-                {
-                    if (inOut)
-                    {
-                        radius = 0f;
-                        inOut = false;
+                        inOut = true;
                     }
-                    radius = Mathf.Lerp(radius, 1f, Time.deltaTime * 3f);
-                    angle += Time.deltaTime;
-                    var x = Mathf.Cos(angle * speed) * radius;
-                    var z = Mathf.Sin(angle * speed) * radius;
-                    levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
                 }
                 else
                 {
-                    radius = Mathf.Lerp(radius, 0f, Time.deltaTime * 3f);
-                    angle += Time.deltaTime;
-                    var x = Mathf.Cos(angle * speed) * radius;
-                    var z = Mathf.Sin(angle * speed) * radius;
-                    levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
-
-                    inOut = true;
+                    if (Input.GetMouseButton(0))
+                    {
+                        rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                    }
                 }
             }
+
 
 
             if (pieceList.Count > 29)
@@ -367,17 +375,17 @@ namespace Es.InkPainter
 
         private void Update()
         {
-  //           if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
- //           {
- //               //                StartCoroutine(WaitForTime());
- //           }
- //
- //           if (Input.GetButtonDown("Jump"))
- //           {
- //               //  StartCoroutine(WaitStartParticle()); // если красим краской
- //               //                Debug.Log(levelArray[_currentLevel].name);
- //               StartCoroutine(WaitForTime());
- //           }
+            //           if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
+            //           {
+            //               //                StartCoroutine(WaitForTime());
+            //           }
+            //
+            //           if (Input.GetButtonDown("Jump"))
+            //           {
+            //               //  StartCoroutine(WaitStartParticle()); // если красим краской
+            //               //                Debug.Log(levelArray[_currentLevel].name);
+            //               StartCoroutine(WaitForTime());
+            //           }
 
             if (ballPrefab.transform.position.y < -5)
             {
@@ -476,11 +484,17 @@ namespace Es.InkPainter
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+
+        public void NewGamePlayOnOff()
+        {
+            newGamePlay = newGamePlay ? false : true;
+        }
+
         public void Reset()
         {
-                PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
-//                resetLevel = false;
- 
+            PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
+                                                   //                resetLevel = false;
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
