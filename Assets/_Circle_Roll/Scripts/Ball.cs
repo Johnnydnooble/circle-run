@@ -28,19 +28,19 @@ namespace Es.InkPainter
             }
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-
-            if (other.tag == "Obstacle")
-            {
-                gameManager.FailLevel();
-            }
-            if (other.tag == "Plate")
-            {
-                Debug.Log("!!!! " + other.name);
-                parent = other.gameObject; // GameObject.Find("ConveyourBelt(Clone)");
-                transform.parent = parent.transform;
-            }
-        }
+//        void OnTriggerEnter(Collider other)
+//        {
+// 
+//            if (other.tag == "Obstacle")
+//            {
+//                gameManager.FailLevel();
+//            }
+//            if (other.tag == "Plate")
+//            {
+//                Debug.Log("!!!! " + other.name);
+//                parent = other.gameObject; // GameObject.Find("ConveyourBelt(Clone)");
+//                transform.parent = parent.transform;
+//            }
+//        }
     }
 }

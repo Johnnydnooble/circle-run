@@ -6,16 +6,34 @@ ModelImporter:
     100000: //RootNode
     100002: Plate_21_In
     100004: Plate_21_Out
+    100006: _123_Variant
+    100008: MainLine
+    100010: Plate_21
+    100012: RoadL
+    100014: RoadR
+    100016: Terrain
     400000: //RootNode
     400002: Plate_21_In
     400004: Plate_21_Out
+    400006: _123_Variant
+    400008: MainLine
+    400010: Plate_21
+    400012: RoadL
+    400014: RoadR
+    400016: Terrain
     2100000: No Name
+    2100002: Cheker
+    2100004: Cheker.001
+    2100006: Cheker.002
     2300000: Plate_21_In
     2300002: Plate_21_Out
+    2300004: //RootNode
     3300000: Plate_21_In
     3300002: Plate_21_Out
+    3300004: //RootNode
     4300000: Plate_21_Out
     4300002: Plate_21_In
+    4300004: Sphere
   externalObjects: {}
   materials:
     importMaterials: 1

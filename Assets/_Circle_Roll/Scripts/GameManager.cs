@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.AI;
 using UnityEngine.ProBuilder;
@@ -145,18 +146,23 @@ namespace Es.InkPainter
 
             InitSaves();
             PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
-            if ((_currentLevel + 1) >= levelArray.Length)
+            if ((_currentLevel) >= levelArray.Length)
             {
                 Reset();
             }
-            levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+            else
+            {
+                levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+                Time.timeScale = 1;
+
+                //            SetupPieces();
+                bottomLid = levelObject.transform.GetChild(0).gameObject;
+            }
+
 
             //=            }
 
-            Time.timeScale = 1;
 
-            //            SetupPieces();
-            bottomLid = levelObject.transform.GetChild(0).gameObject;
         }
 
         void Start()
@@ -170,7 +176,8 @@ namespace Es.InkPainter
             rb = ballPrefab.GetComponent<Rigidbody>();
             //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
 
-            inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
+            inkCanvas = levelObject.transform.GetComponent<InkCanvas>(); // скрипт закраски кистью
+                                                                                     //           inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
                                                                                      //=            }
                                                                                      //            else
                                                                                      //            {
@@ -269,7 +276,7 @@ namespace Es.InkPainter
             //        }
         }
 
-
+/*
         private void FixedUpdate()
         {
             //radiusToBall = ball.transform.position - centre.transform.position;
@@ -282,6 +289,7 @@ namespace Es.InkPainter
                 {
                     if (Input.GetMouseButton(0))
                     {
+
                         //                    Debug.Log("tangent " + tangent);
                         if (OverrideDefaultSpeedBall)
                         {
@@ -296,17 +304,7 @@ namespace Es.InkPainter
 
                             #region PlateMove
 
-                            //                       if (cachedCenter.x <= radius) // плавно выравниваем plate по центру экрана
-                            //                       {
-                            //                           cachedCenter.x += 0.1f;
-                            //                       }
-                            //
-                            //                       angle += Time.deltaTime;
-                            //                       var x = Mathf.Cos(angle * speed) * radius;
-                            //                       var z = Mathf.Sin(angle * speed) * radius;
-                            //                       Debug.Log(x);
-                            //
-                            //                       levelObject.transform.position = new Vector3(x, 0f, z) + cachedCenter - new Vector3(radius, 0f, 0f); // Vector3(radius, 0f, 0f)  плавно начинаем
+
 
                             #endregion PlateMove
 
@@ -353,9 +351,8 @@ namespace Es.InkPainter
                         rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
                     }
                 }
+
             }
-
-
 
             if (pieceList.Count > 29)
             {
@@ -370,9 +367,9 @@ namespace Es.InkPainter
                 }
             }
         }
+*/
 
-
-
+        //
         private void Update()
         {
             //           if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
@@ -483,7 +480,6 @@ namespace Es.InkPainter
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
 
         public void NewGamePlayOnOff()
         {
