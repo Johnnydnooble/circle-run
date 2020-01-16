@@ -10,10 +10,13 @@ ModelImporter:
     400002: Plate_09_In
     400004: Plate_09_Out
     2100000: No Name
+    2100002: Checker
     2300000: Plate_09_In
     2300002: Plate_09_Out
+    2300004: //RootNode
     3300000: Plate_09_In
     3300002: Plate_09_Out
+    3300004: //RootNode
     4300000: Plate_09_Out
     4300002: Plate_09_In
   externalObjects: {}

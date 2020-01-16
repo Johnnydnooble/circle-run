@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectControl : MonoBehaviour
+public class DragControl : MonoBehaviour
 {
     public string[] tags; // массив тегов, объекты которых можно двигать
     public Camera _camera; // основная камера сцены
@@ -51,7 +51,7 @@ public class ObjectControl : MonoBehaviour
                 curObj.GetComponent<Rigidbody>().MovePosition(new Vector3((Mathf.Clamp(mousePosition.x * 20f * Time.fixedDeltaTime, -1.5f, 1.5f)), curObj.position.y, (Mathf.Clamp(mousePosition.z * 20f * Time.fixedDeltaTime, -1.5f, 1.5f))));
 
                 //               curObj.transform.position = new Vector3(mousePosition.x, curObj.position.y, mousePosition.z);
-//                curObj.transform.position = new Vector3((Mathf.Clamp(mousePosition.x * 20f * Time.fixedDeltaTime, -1.5f, 1.5f)), curObj.position.y, (Mathf.Clamp(mousePosition.z * 20f * Time.fixedDeltaTime, -1.5f, 1.5f)));
+ //               curObj.transform.position = new Vector3((Mathf.Clamp(mousePosition.x * 20f * Time.fixedDeltaTime, -1.5f, 1.5f)), curObj.position.y, (Mathf.Clamp(mousePosition.z * 20f * Time.fixedDeltaTime, -1.5f, 1.5f)));
             }
         }
         else if (curObj)

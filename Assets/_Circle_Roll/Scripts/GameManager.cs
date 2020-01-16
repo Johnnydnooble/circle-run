@@ -23,7 +23,7 @@ namespace Es.InkPainter
         //        [Header("load Level 1 - 30")]
         //        [Range(1, 30)]
         //       private int loadLevel;
-        private bool newGamePlay = true;
+        private bool newGamePlay = false;
 
         // Level
         private int _currentLevel;
@@ -176,8 +176,8 @@ namespace Es.InkPainter
             rb = ballPrefab.GetComponent<Rigidbody>();
             //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
 
-            inkCanvas = levelObject.transform.GetComponent<InkCanvas>(); // скрипт закраски кистью
-                                                                                     //           inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
+       //     inkCanvas = levelObject.transform.GetComponent<InkCanvas>(); // скрипт закраски кистью без детей
+              inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
                                                                                      //=            }
                                                                                      //            else
                                                                                      //            {
@@ -276,7 +276,7 @@ namespace Es.InkPainter
             //        }
         }
 
-/*
+
         private void FixedUpdate()
         {
             //radiusToBall = ball.transform.position - centre.transform.position;
@@ -284,12 +284,11 @@ namespace Es.InkPainter
             {
                 radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
                 Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall).normalized;
-                //            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
+//            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
                 if (newGamePlay)
                 {
                     if (Input.GetMouseButton(0))
                     {
-
                         //                    Debug.Log("tangent " + tangent);
                         if (OverrideDefaultSpeedBall)
                         {
@@ -298,15 +297,9 @@ namespace Es.InkPainter
                             //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
                             //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
 
-                            rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                            rb.AddForce(tangent * .1f, ForceMode.VelocityChange);
                             //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
                             //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
-
-                            #region PlateMove
-
-
-
-                            #endregion PlateMove
 
                             //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
                             //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
@@ -348,26 +341,26 @@ namespace Es.InkPainter
                 {
                     if (Input.GetMouseButton(0))
                     {
-                        rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                        rb.AddForce(tangent * .1f, ForceMode.VelocityChange);
                     }
                 }
 
             }
 
-            if (pieceList.Count > 29)
-            {
-                LevelFinished = true;
-                foreach (GameObject piece in pieceList)
-                {
-                    if (piece.GetComponent<Renderer>().material.color != Color.green)
-                    {
-                        LevelFinished = false;
-                        break;
-                    }
-                }
-            }
+ //=1a           if (pieceList.Count > 29)
+ //=1a           {
+ //=1a               LevelFinished = true;
+ //=1a               foreach (GameObject piece in pieceList)
+ //=1a               {
+ //=1a                   if (piece.GetComponent<Renderer>().material.color != Color.green)
+ //=1a                   {
+ //=1a                       LevelFinished = false;
+ //=1a                       break;
+ //=1a                   }
+ //=1a               }
+ //=1a           }
         }
-*/
+
 
         //
         private void Update()
@@ -375,13 +368,6 @@ namespace Es.InkPainter
             //           if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
             //           {
             //               //                StartCoroutine(WaitForTime());
-            //           }
-            //
-            //           if (Input.GetButtonDown("Jump"))
-            //           {
-            //               //  StartCoroutine(WaitStartParticle()); // если красим краской
-            //               //                Debug.Log(levelArray[_currentLevel].name);
-            //               StartCoroutine(WaitForTime());
             //           }
 
             if (ballPrefab.transform.position.y < -5)
@@ -400,10 +386,10 @@ namespace Es.InkPainter
         {
             yield return new WaitForSeconds(2f);
             RenderTexture sourceTex = inkCanvas.PaintDatas.FirstOrDefault().paintMainTexture; // получить текстуру из памяти
-                                                                                              //           RenderTexture sourceTex = levelObject.transform.GetChild(0).GetComponent<RenderTexture>(); // 2 вариант доступа к текстуре - доделать
-                                                                                              //           var sourceTex = inkCanvas.PaintDatas.FirstOrDefault().material.mainTexture as Texture2D; // 3 вар получить текстуру из памяти - доделать
+//              RenderTexture sourceTex = levelObject.transform.GetChild(0).GetComponent<RenderTexture>(); // 2 вариант доступа к текстуре - доделать
+//           var sourceTex = inkCanvas.PaintDatas.FirstOrDefault().material.mainTexture as Texture2D; // 3 вар получить текстуру из памяти - доделать
 
-            //           GetComponent<MeshRenderer>().material.mainTexture = sourceTex; // посмотреть текстуру
+//           GetComponent<MeshRenderer>().material.mainTexture = sourceTex; // посмотреть текстуру
 
             texture2D = new Texture2D(resolution, resolution, TextureFormat.RGB24, false); // создаем текстуру2D
             texture2D.filterMode = FilterMode.Point;
@@ -430,22 +416,7 @@ namespace Es.InkPainter
                     }
                 }
             }
-            #region for
-            //            Rect rect = new Rect(0, 0, width, height);
-            //
-            //            tmp_texture_2d.ReadPixels(rect, 0, 0);
 
-            //           for (int pixel_y = 0; pixel_y < resolution; ++pixel_y)
-            //           {
-            //               for (int pixel_x = 0; pixel_x < resolution; ++pixel_x)
-            //               {
-            //                   Color c = texture2D.GetPixel(pixel_x, pixel_y);
-            //                   Debug.LogFormat("pixel[{0},{1}] = {2}", pixel_x, pixel_y, c);
-            //               }
-            //           }
-
-            //           FillTexture();
-            #endregion for
             GetComponent<MeshRenderer>().material.mainTexture = texture2D; // посмотреть текстуру
 
             RenderTexture.active = null; // очистить времменую  RenderTexture

@@ -6,16 +6,24 @@ ModelImporter:
     100000: //RootNode
     100002: Plate_07_In
     100004: Plate_07_Out
+    100006: Plate_07_ In
     400000: //RootNode
     400002: Plate_07_In
     400004: Plate_07_Out
+    400006: Plate_07_ In
     2100000: No Name
+    2100002: Checker
     2300000: Plate_07_In
     2300002: Plate_07_Out
+    2300004: Plate_07_ In
+    2300006: //RootNode
     3300000: Plate_07_In
     3300002: Plate_07_Out
+    3300004: Plate_07_ In
+    3300006: //RootNode
     4300000: Plate_07_In
     4300002: Plate_07_Out
+    4300004: Plate_07_ In
   externalObjects: {}
   materials:
     importMaterials: 1
