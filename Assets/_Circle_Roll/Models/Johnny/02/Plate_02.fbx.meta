@@ -65,6 +65,7 @@ ModelImporter:
     100118: Plate_29_In
     100120: Plate_30
     100122: Plate_30_In
+    100124: Plate_02_ In
     400000: //RootNode
     400002: Plate_02_In
     400004: Plate_02_Out
@@ -127,6 +128,7 @@ ModelImporter:
     400118: Plate_29_In
     400120: Plate_30
     400122: Plate_30_In
+    400124: Plate_02_ In
     2100000: No Name
     2100002: Checker
     2300000: Plate_02_In
@@ -161,6 +163,7 @@ ModelImporter:
     2300058: Plate_29_In
     2300060: Plate_30_In
     2300062: //RootNode
+    2300064: Plate_02_ In
     3300000: Plate_02_In
     3300002: Plate_02_Out
     3300004: Plate_01_In
@@ -193,6 +196,7 @@ ModelImporter:
     3300058: Plate_29_In
     3300060: Plate_30_In
     3300062: //RootNode
+    3300064: Plate_02_ In
     4300000: Plate_02_Out
     4300002: Plate_02_In
     4300004: Plate_01_In
@@ -224,6 +228,7 @@ ModelImporter:
     4300056: Plate_28_In
     4300058: Plate_29_In
     4300060: Plate_30_In
+    4300062: Plate_02_ In
   externalObjects: {}
   materials:
     importMaterials: 1

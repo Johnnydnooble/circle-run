@@ -284,6 +284,7 @@ namespace Es.InkPainter
             {
                 radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
                 Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall).normalized;
+                
 //            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
                 if (newGamePlay)
                 {
@@ -341,7 +342,7 @@ namespace Es.InkPainter
                 {
                     if (Input.GetMouseButton(0))
                     {
-                        rb.AddForce(tangent * .1f, ForceMode.VelocityChange);
+                        rb.AddForce(tangent * 0.5f, ForceMode.VelocityChange);
                     }
                 }
 
@@ -382,6 +383,14 @@ namespace Es.InkPainter
             }
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Bonus")
+            {
+                ballPrefab.GetComponent<CollisionPainter>().brush.splatScale = 0.2f;
+            }
+        }
+
         IEnumerator PixelColor()
         {
             yield return new WaitForSeconds(2f);
@@ -407,10 +416,11 @@ namespace Es.InkPainter
             for (int i = 0; i < pixels.Length; i++)
             {
                 //                Debug.Log(i + "Pixels " + pixels[i]);
-                if (pixels[i].r < 0.200 && pixels[i].g < 0.200 && pixels[i].b > 0.800)
-                {
+//                if (pixels[i].r < 0.200 && pixels[i].g < 0.200 && pixels[i].b > 0.800) // синий
+                    if (pixels[i].r > 0.8 && pixels[i].g > 0.7 && pixels[i].b < 0.3) // желтый
+                    {
                     countPixel++;
-                    if (countPixel > 1015)
+                    if (countPixel > 1000)
                     {
                         StartCoroutine(WaitForTime());
                     }

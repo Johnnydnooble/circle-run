@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plate
   - Obstacle
+  - Bonus
   layers:
   - Default
   - TransparentFX

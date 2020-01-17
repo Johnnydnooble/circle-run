@@ -89,7 +89,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466709565914257738}
-  m_Material: {fileID: 13400000, guid: 4e1924e51e1874716a8861fe61391c50, type: 2}
+  m_Material: {fileID: 13400000, guid: ac4476a6f4e6a3546800a2eff4349f48, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -103,7 +103,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466709565914257738}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -171,7 +171,7 @@ MonoBehaviour:
     rotateAngle: 0
     brushNormalBlend: 0.1
     brushHeightBlend: 0.1
-    brushColor: {r: 0, g: 0, b: 1, a: 1}
+    brushColor: {r: 0.94509804, g: 0.76862746, b: 0.05882353, a: 1}
     colorBlendType: 0
     normalBlendType: 0
     heightBlendType: 0
