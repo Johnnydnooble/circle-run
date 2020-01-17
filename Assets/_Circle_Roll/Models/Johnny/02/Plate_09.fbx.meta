@@ -11,6 +11,7 @@ ModelImporter:
     400004: Plate_09_Out
     2100000: No Name
     2100002: Checker
+    2100004: Material.001
     2300000: Plate_09_In
     2300002: Plate_09_Out
     2300004: //RootNode
@@ -19,6 +20,7 @@ ModelImporter:
     3300004: //RootNode
     4300000: Plate_09_Out
     4300002: Plate_09_In
+    4300004: Sphere
   externalObjects: {}
   materials:
     importMaterials: 1
