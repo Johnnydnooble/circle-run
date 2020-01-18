@@ -169,10 +169,10 @@ MonoBehaviour:
       type: 3}
     brushScale: 0.1
     rotateAngle: 0
-    brushNormalBlend: 0.1
-    brushHeightBlend: 0.1
+    brushNormalBlend: 0
+    brushHeightBlend: 0
     brushColor: {r: 0.94509804, g: 0.76862746, b: 0.05882353, a: 1}
     colorBlendType: 0
     normalBlendType: 0
     heightBlendType: 0
-  wait: 3
+  wait: 1
