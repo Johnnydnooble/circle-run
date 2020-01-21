@@ -54,7 +54,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color ballColor;
     [Range(3f, 60f)]
     [SerializeField] float speedBall = 15f;
+    [SerializeField] bool forceImpulse;
     [SerializeField] bool OverrideDefaultSpeedBall;
+
     [Space(5)]
 
     [Header("Plate")]
@@ -285,28 +287,43 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 //                    Debug.Log("tangent " + tangent);
-                if (OverrideDefaultSpeedBall)
+                if (!forceImpulse)
                 {
-                    // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
-                    //                                       rb.AddForce(tangent * 10f, ForceMode.Acceleration); 
-                    //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
-                    //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
+                    if (OverrideDefaultSpeedBall)
+                    {
+                        // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
+                        //                                       rb.AddForce(tangent * 10f, ForceMode.Acceleration); 
+                        //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
+                        //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
 
-                    rb.AddForce(tangent * 35f * Time.fixedDeltaTime, ForceMode.VelocityChange);
-                    //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
-                    //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                        rb.AddForce(tangent * 35f * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                        //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
+                        //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
 
-                    //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
-                    //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
+                        //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
+                        //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
 
-                    //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
-                    //                    levelObject.transform.rotation *= rotationY;
+                        //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
+                        //                    levelObject.transform.rotation *= rotationY;
+                    }
+                    else
+                    {
+                        //                    rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast       
+                        rb.AddForce(tangent * speedBall * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                    }
                 }
                 else
                 {
-//                    rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast       
-                    rb.AddForce(tangent * speedBall * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                    if (OverrideDefaultSpeedBall)
+                    {                       
+                        rb.AddForce(tangent * 35f * Time.fixedDeltaTime, ForceMode.Impulse);
+                    }
+                    else
+                    {
+                        rb.AddForce(tangent * speedBall * Time.fixedDeltaTime, ForceMode.Impulse);
+                    }
                 }
+                
             }
 
 //            if (Input.GetMouseButton(0))

@@ -10487,6 +10487,7 @@ MonoBehaviour:
   ballInitialPos: {x: 0.2, y: 10, z: 0}
   ballColor: {r: 0, g: 0, b: 1, a: 0}
   speedBall: 35
+  forceImpulse: 1
   OverrideDefaultSpeedBall: 1
   OverrideDefaultMat: 0
   plateMat: {fileID: 2100000, guid: d4a8bc42d10b742488c46c1c211d6b5b, type: 2}
