@@ -9423,7 +9423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e46da6d2d77491789d2c9d78b7c9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadLevel: 4
   camera: {fileID: 534669902}
   rotateCameraAxisX: 70
   moveCameraAlongAxisZ: -4
@@ -9459,6 +9458,7 @@ MonoBehaviour:
   archObstaclePref: {fileID: 1598084229972780719, guid: bad8095a141d1e54387ffecfafe2374f,
     type: 3}
   ActivateMovingPiece: 0
+  resolution: 32
 --- !u!4 &656794273
 Transform:
   m_ObjectHideFlags: 0
@@ -16018,7 +16018,7 @@ PrefabInstance:
     - target: {fileID: 1344733616400437967, guid: 5399388c1875b7e4bab6b8e8a1b0019d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6673821051119093613, guid: 5399388c1875b7e4bab6b8e8a1b0019d,
         type: 3}

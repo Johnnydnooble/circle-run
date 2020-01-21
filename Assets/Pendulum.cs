@@ -10,7 +10,7 @@ public class Pendulum : MonoBehaviour
     void Update()
     {
  //       transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, Mathf.Sin(Time.time * speed) * amp));
-        transform.eulerAngles = new Vector3(0, 0, Mathf.PingPong(Time.time * 60, 90) - 45);
+        transform.eulerAngles = new Vector3(0, Mathf.PingPong(Time.time * 60, 180), 0);
  
 //        transform.eulerAngles = new Vector3(0, 0, Mathf.Lerp(-35f, 35f, Time.time));
        

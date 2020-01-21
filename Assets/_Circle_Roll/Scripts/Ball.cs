@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Es.InkPainter;
 
-namespace Es.InkPainter
-{
     public class Ball : MonoBehaviour
     {
         GameManager gameManager;
@@ -43,4 +42,3 @@ namespace Es.InkPainter
  //           }
         }
     }
-}

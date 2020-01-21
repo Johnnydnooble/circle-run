@@ -14,8 +14,7 @@ using Es.InkPainter.Effective;
 using Es;
 using Es.InkPainter;
 
-namespace Es.InkPainter
-{
+
     public class GameManager : MonoBehaviour
     {
         [Header("ResetLevel")]
@@ -95,14 +94,14 @@ namespace Es.InkPainter
         private Material colorMat;
 
         //Game States
-        bool isPlaying;
-        bool isLevelCreated;
-        bool LevelFinished;
+        private bool isPlaying;
+        private bool isLevelCreated;
+        private bool LevelFinished;
 
         [Header("Obstacle")]
         [SerializeField] GameObject archObstaclePref;
         private GameObject archObstacle;
-        int old = 0;
+        private int old = 0;
         [SerializeField] bool ActivateMovingPiece;
         //    [SerializeField] bool ActivateMovingBlock;
         //    [SerializeField] bool ActivateMovingBall;
@@ -152,11 +151,12 @@ namespace Es.InkPainter
             }
             else
             {
+                // plate, piece
                 levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
                 Time.timeScale = 1;
-
-                //            SetupPieces();
-                bottomLid = levelObject.transform.GetChild(0).gameObject;
+                SetupPieces();
+            
+                bottomLid = levelObject.transform.GetChild(2).gameObject;
             }
 
 
@@ -169,20 +169,17 @@ namespace Es.InkPainter
         {
             // level
             textCurrent.text = (_currentLevel + 1).ToString();
-            //instantiate ball at initial position
-            //=           if (loadLevel > 0)
-            //=           {
-            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
-            rb = ballPrefab.GetComponent<Rigidbody>();
-            //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
 
-       //     inkCanvas = levelObject.transform.GetComponent<InkCanvas>(); // скрипт закраски кистью без детей
-              inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
-                                                                                     //=            }
-                                                                                     //            else
-                                                                                     //            {
-                                                                                     //                ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity);
-                                                                                     //            }
+            //instantiate ball at initial position
+            ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity); // 1 ball
+            rb = ballPrefab.GetComponent<Rigidbody>();
+
+            //inkPaint            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
+            //inkPaint            rb = ballPrefab.GetComponent<Rigidbody>();
+            //inkPaint            //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
+
+            //inkPaint       //     inkCanvas = levelObject.transform.GetComponent<InkCanvas>(); // скрипт закраски кистью без детей
+            //inkPaint              inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
 
             rbLevel = levelObject.GetComponent<Rigidbody>();
 
@@ -195,20 +192,17 @@ namespace Es.InkPainter
             //Set Material
             //        colorMat = Resources.Load("PieceMat", typeof(Material)) as Material;    
 
-            // plate, piece
-            //       levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
-            //       SetupPieces();
-            bottomLid = levelObject.transform.GetChild(0).gameObject;
+//            bottomLid = levelObject.transform.GetChild(0).gameObject;
 
-            if (ActivateMovingPiece)
-            {
+            if (_currentLevel == 5) // движущиеся клетки // ActivateMovingPiece
+        {
                 StartCoroutine(MovePiece2());
             }
 
-            if (coroutinePixelColor == null)
-            {
-                coroutinePixelColor = StartCoroutine(PixelColor());
-            }
+//inkPaint            if (coroutinePixelColor == null)
+//inkPaint            {
+//inkPaint                coroutinePixelColor = StartCoroutine(PixelColor());
+//inkPaint            }
         }
 
         private void SetupPieces()
@@ -279,7 +273,8 @@ namespace Es.InkPainter
 
         private void FixedUpdate()
         {
-            //radiusToBall = ball.transform.position - centre.transform.position;
+        //radiusToBall = ball.transform.position - centre.transform.position;
+//        Debug.Log(bottomLid);
             if (bottomLid != null)
             {
                 radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
@@ -342,41 +337,42 @@ namespace Es.InkPainter
                 {
                     if (Input.GetMouseButton(0))
                     {
-                        rb.AddForce(tangent * 0.5f, ForceMode.VelocityChange);
+                        rb.AddForce(tangent * 1f, ForceMode.VelocityChange);
                     }
                 }
 
             }
 
- //=1a           if (pieceList.Count > 29)
- //=1a           {
- //=1a               LevelFinished = true;
- //=1a               foreach (GameObject piece in pieceList)
- //=1a               {
- //=1a                   if (piece.GetComponent<Renderer>().material.color != Color.green)
- //=1a                   {
- //=1a                       LevelFinished = false;
- //=1a                       break;
- //=1a                   }
- //=1a               }
- //=1a           }
+            if (pieceList.Count > 29)
+            {
+                LevelFinished = true;
+                foreach (GameObject piece in pieceList)
+                {
+                    if (piece.GetComponent<Renderer>().material.color != Color.green)
+                    {
+                        LevelFinished = false;
+                        break;
+                    }
+                }
+            }
         }
 
 
         //
         private void Update()
         {
-            //           if (pieceList.Count == 0 && ballPrefab.name != "BallInkPaint(Clone)") //&& inkCanvas.GetNormalTexture(plateMat.name)
-            //           {
-            //               //                StartCoroutine(WaitForTime());
-            //           }
+//            Debug.Log(pieceList.Count);
+            if (pieceList.Count == 0) // Paint Face // && ballPrefab.name != "BallInkPaint(Clone)"
+            {
+               StartCoroutine(WaitForTime());
+            }
 
             if (ballPrefab.transform.position.y < -5)
             {
                 FailLevel();
             }
 
-            if (!OverrideDefaultCameraMove)
+            if (!OverrideDefaultCameraMove) // MovingCamera
             {
                 camera.transform.position = new Vector3(0f, zoomCameraAlongAxisY, moveCameraAlongAxisZ);
                 camera.transform.rotation = Quaternion.Euler(rotateCameraAxisX, 0f, 0f);
@@ -391,7 +387,7 @@ namespace Es.InkPainter
             }
         }
 
-        IEnumerator PixelColor()
+        IEnumerator PixelColor() // inkPaint
         {
             yield return new WaitForSeconds(2f);
             RenderTexture sourceTex = inkCanvas.PaintDatas.FirstOrDefault().paintMainTexture; // получить текстуру из памяти
@@ -443,7 +439,7 @@ namespace Es.InkPainter
             WinLevel();
         }
 
-        IEnumerator InstantiateBallInkPaintPrefab()
+        IEnumerator InstantiateBallInkPaintPrefab() // 3 ball
         {
             ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
             rb = ballPrefab.GetComponent<Rigidbody>();
@@ -513,7 +509,7 @@ namespace Es.InkPainter
 
         public void animatePiece(GameObject piece)
         {
-            Sequence s = DOTween.Sequence();
+//            Sequence s = DOTween.Sequence();
             //       s.Append(piece.transform.DOScale(1.1f, 0.25f));
             //s.Append(piece.transform.DOScale(100f, 0.25f));
         }
@@ -551,4 +547,3 @@ namespace Es.InkPainter
             StartCoroutine(MovePiece2());
         }
     }
-}

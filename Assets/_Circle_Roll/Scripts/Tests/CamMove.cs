@@ -23,7 +23,7 @@ namespace Es.InkPainter
         {
             gameManager = GameObject.FindObjectOfType<GameManager>();
             StartCoroutine(FindPlayer());
-            //        plate = gameManager.levelArray[gameManager.loadLevel];
+            plate = gameManager.levelArray[gameManager.CurrentLevel];
         }
 
         void LateUpdate()
@@ -37,7 +37,7 @@ namespace Es.InkPainter
                 }
                 else //if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 2)
                 {
-                    Debug.Log("It's not a Plate_9_02(Clone)");
+//                    Debug.Log("It's not a Plate_9_02(Clone)");
                     transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + offset.y, transform.position.z), Time.deltaTime * smooth);
                 }
             }
@@ -47,7 +47,7 @@ namespace Es.InkPainter
         {
             yield return new WaitForSeconds(1f);
             player = GameObject.FindGameObjectWithTag("Player").transform;
-            plate = GameObject.FindGameObjectWithTag("Plate");
+//            plate = GameObject.FindGameObjectWithTag("Plate");
             offset = transform.position - player.transform.position;
         }
     }
