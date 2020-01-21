@@ -156,7 +156,7 @@ using Es.InkPainter;
                 Time.timeScale = 1;
                 SetupPieces();
             
-                bottomLid = levelObject.transform.GetChild(2).gameObject;
+                bottomLid = levelObject.transform.GetChild(1).gameObject;
             }
 
 
