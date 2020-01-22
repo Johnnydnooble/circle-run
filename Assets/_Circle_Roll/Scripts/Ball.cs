@@ -23,7 +23,7 @@ using Es.InkPainter;
             if (gameObject.name != "BallInkPaint(Clone)")
             {
                 gameManager.changeColor(collision.gameObject);
-                gameManager.animatePiece(collision.gameObject);
+                
             }
         }
 

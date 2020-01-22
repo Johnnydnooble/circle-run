@@ -132,21 +132,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //            if (resetLevel)
-        //            {
-        //                PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
-        //                resetLevel = false;
-        //            }
-
-        //=           if (loadLevel != _currentLevel && loadLevel > _currentLevel)  // 
-        //=           {
-        //=               _currentLevel = (loadLevel);
-        //=               levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
-        //=               PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
-        //=           }
-        //=           else
-        //=           {
-
 
         InitSaves();
         PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
@@ -194,20 +179,14 @@ public class GameManager : MonoBehaviour
         plateMat.color = plateColor;
         backgroundMat.color = backgroundColor;
 
-        //Set Material
-        //        colorMat = Resources.Load("PieceMat", typeof(Material)) as Material;    
-
-        //            bottomLid = levelObject.transform.GetChild(0).gameObject;
+        bottomLid = levelObject.transform.GetChild(0).gameObject;
 
         if (_currentLevel == 5) // движущиеся клетки // ActivateMovingPiece
         {
             StartCoroutine(MovePiece2());
         }
 
-        //inkPaint            if (coroutinePixelColor == null)
-        //inkPaint            {
-        //inkPaint                coroutinePixelColor = StartCoroutine(PixelColor());
-        //inkPaint            }
+       
 
         //Analytics here
 
@@ -228,56 +207,10 @@ public class GameManager : MonoBehaviour
             pieceList.Add(child.gameObject);
             pieceListObst.Add(child.gameObject);
 
-            //--            if (i == 40 && loadLevel  == 1)
-            //--            {
-            //--                Debug.Log("Arch" + child.rotation);
-            //--                //                child.gameObject.AddComponent<MeshFilter>().mesh.normals
-            //--
-            //--//                var rot = Quaternion.Euler(Vector3.forward);
-            //--                archObstacle = Instantiate(archObstaclePref, child.position, child.rotation);
-            //-- //              archObstacle.transform.parent = child.gameObject.transform;
-            //--            }
-            //--            i++;           
+                 
         }
 
-        //        foreach (Transform child in levelObject.transform.GetChild(1))
-        //        {
-        //            child.gameObject.AddComponent<MeshCollider>();
-        //            if (OverrideDefaultMat)
-        //            {
-        //                child.gameObject.GetComponent<Renderer>().material = plateMat;
-        //            }
-        //            pieceList.Add(child.gameObject);
-        //           
-        //        }
-        //
-        //        if (levelObject.transform.childCount > 2)
-        //        {
-        //            foreach (Transform child in levelObject.transform.GetChild(2))
-        //            {
-        //                child.gameObject.AddComponent<MeshCollider>();
-        //                if (OverrideDefaultMat)
-        //                {
-        //                    child.gameObject.GetComponent<Renderer>().material = plateMat;
-        //                }
-        //                pieceList.Add(child.gameObject);
-        //
-        //            }
-        //        }
-        //
-        //        if (levelObject.transform.childCount > 3)
-        //        {
-        //            foreach (Transform child in levelObject.transform.GetChild(3))
-        //            {
-        //                child.gameObject.AddComponent<MeshCollider>();
-        //                if (OverrideDefaultMat)
-        //                {
-        //                    child.gameObject.GetComponent<Renderer>().material = plateMat;
-        //                }
-        //                pieceList.Add(child.gameObject);
-        //
-        //            }
-        //        }
+        
     }
 
 
@@ -317,29 +250,7 @@ public class GameManager : MonoBehaviour
                 }                
             }
 
-//            if (Input.GetMouseButton(0))
-//            {
-//                if (inOut)
-//                {
-//                    radius = 0f;
-//                    inOut = false;
-//                }
-//                radius = Mathf.Lerp(radius, 1f, Time.deltaTime * 3f);
-//                angle += Time.deltaTime;
-//                var x = Mathf.Cos(angle * speed) * radius;
-//                var z = Mathf.Sin(angle * speed) * radius;
-//                levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
-//            }
-//            else
-//            {
-//                radius = Mathf.Lerp(radius, 0f, Time.deltaTime * 3f);
-//                angle += Time.deltaTime;
-//                var x = Mathf.Cos(angle * speed) * radius;
-//                var z = Mathf.Sin(angle * speed) * radius;
-//                levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
-//
-//                inOut = true;
-//            }
+
 
 
         }
@@ -440,17 +351,7 @@ public class GameManager : MonoBehaviour
         WinLevel();
     }
 
-    IEnumerator InstantiateBallInkPaintPrefab() // 3 ball
-    {
-        _ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
-        rb = _ballPrefab.GetComponent<Rigidbody>();
-        yield return new WaitForSeconds(1f);
-        _ballPrefab = Instantiate(ballInkPaintPrefab, new Vector3(ballInitialPos.x + 1f, ballInitialPos.y, ballInitialPos.z + 1f), Quaternion.identity);
-        rb2 = _ballPrefab.GetComponent<Rigidbody>();
-        yield return new WaitForSeconds(1f);
-        _ballPrefab = Instantiate(ballInkPaintPrefab, new Vector3(ballInitialPos.x - 1f, ballInitialPos.y, ballInitialPos.z - 1f), Quaternion.identity);
-        rb3 = _ballPrefab.GetComponent<Rigidbody>();
-    }
+
 
     public void RestartLevel()
     {
@@ -510,12 +411,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckForLevelCompletion() { }
 
-    public void animatePiece(GameObject piece)
-    {
-        //            Sequence s = DOTween.Sequence();
-        //       s.Append(piece.transform.DOScale(1.1f, 0.25f));
-        //s.Append(piece.transform.DOScale(100f, 0.25f));
-    }
+   
 
     public void changeColor(GameObject piece)
     {
