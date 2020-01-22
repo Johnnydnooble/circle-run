@@ -69,6 +69,38 @@ ModelImporter:
     100126: Sphere.062
     100128: Sphere.063
     100130: Sphere.064
+    100132: Sphere.065
+    100134: Sphere.066
+    100136: Sphere.067
+    100138: Sphere.068
+    100140: Sphere.069
+    100142: Sphere.070
+    100144: Sphere.071
+    100146: Sphere.072
+    100148: Sphere.073
+    100150: Sphere.074
+    100152: Sphere.075
+    100154: Sphere.076
+    100156: Sphere.077
+    100158: Sphere.078
+    100160: Sphere.079
+    100162: Sphere.080
+    100164: Sphere.081
+    100166: Sphere.082
+    100168: Sphere.083
+    100170: Sphere.084
+    100172: Sphere.085
+    100174: Sphere.086
+    100176: Sphere.087
+    100178: Sphere.088
+    100180: Sphere.089
+    100182: Sphere.090
+    100184: Sphere.091
+    100186: Sphere.092
+    100188: Sphere.093
+    100190: Sphere.094
+    100192: Sphere.095
+    100194: Sphere.096
     400000: //RootNode
     400002: Sphere
     400004: Sphere.001
@@ -135,6 +167,38 @@ ModelImporter:
     400126: Sphere.062
     400128: Sphere.063
     400130: Sphere.064
+    400132: Sphere.065
+    400134: Sphere.066
+    400136: Sphere.067
+    400138: Sphere.068
+    400140: Sphere.069
+    400142: Sphere.070
+    400144: Sphere.071
+    400146: Sphere.072
+    400148: Sphere.073
+    400150: Sphere.074
+    400152: Sphere.075
+    400154: Sphere.076
+    400156: Sphere.077
+    400158: Sphere.078
+    400160: Sphere.079
+    400162: Sphere.080
+    400164: Sphere.081
+    400166: Sphere.082
+    400168: Sphere.083
+    400170: Sphere.084
+    400172: Sphere.085
+    400174: Sphere.086
+    400176: Sphere.087
+    400178: Sphere.088
+    400180: Sphere.089
+    400182: Sphere.090
+    400184: Sphere.091
+    400186: Sphere.092
+    400188: Sphere.093
+    400190: Sphere.094
+    400192: Sphere.095
+    400194: Sphere.096
     2100000: No Name
     2300000: Sphere
     2300002: Sphere.001
@@ -201,6 +265,38 @@ ModelImporter:
     2300124: Sphere.062
     2300126: Sphere.063
     2300128: Sphere.064
+    2300130: Sphere.065
+    2300132: Sphere.066
+    2300134: Sphere.067
+    2300136: Sphere.068
+    2300138: Sphere.069
+    2300140: Sphere.070
+    2300142: Sphere.071
+    2300144: Sphere.072
+    2300146: Sphere.073
+    2300148: Sphere.074
+    2300150: Sphere.075
+    2300152: Sphere.076
+    2300154: Sphere.077
+    2300156: Sphere.078
+    2300158: Sphere.079
+    2300160: Sphere.080
+    2300162: Sphere.081
+    2300164: Sphere.082
+    2300166: Sphere.083
+    2300168: Sphere.084
+    2300170: Sphere.085
+    2300172: Sphere.086
+    2300174: Sphere.087
+    2300176: Sphere.088
+    2300178: Sphere.089
+    2300180: Sphere.090
+    2300182: Sphere.091
+    2300184: Sphere.092
+    2300186: Sphere.093
+    2300188: Sphere.094
+    2300190: Sphere.095
+    2300192: Sphere.096
     3300000: Sphere
     3300002: Sphere.001
     3300004: Sphere.002
@@ -266,6 +362,38 @@ ModelImporter:
     3300124: Sphere.062
     3300126: Sphere.063
     3300128: Sphere.064
+    3300130: Sphere.065
+    3300132: Sphere.066
+    3300134: Sphere.067
+    3300136: Sphere.068
+    3300138: Sphere.069
+    3300140: Sphere.070
+    3300142: Sphere.071
+    3300144: Sphere.072
+    3300146: Sphere.073
+    3300148: Sphere.074
+    3300150: Sphere.075
+    3300152: Sphere.076
+    3300154: Sphere.077
+    3300156: Sphere.078
+    3300158: Sphere.079
+    3300160: Sphere.080
+    3300162: Sphere.081
+    3300164: Sphere.082
+    3300166: Sphere.083
+    3300168: Sphere.084
+    3300170: Sphere.085
+    3300172: Sphere.086
+    3300174: Sphere.087
+    3300176: Sphere.088
+    3300178: Sphere.089
+    3300180: Sphere.090
+    3300182: Sphere.091
+    3300184: Sphere.092
+    3300186: Sphere.093
+    3300188: Sphere.094
+    3300190: Sphere.095
+    3300192: Sphere.096
     4300000: Sphere
     4300002: Sphere.001
     4300004: Sphere.002
@@ -331,6 +459,38 @@ ModelImporter:
     4300124: Sphere.062
     4300126: Sphere.063
     4300128: Sphere.064
+    4300130: Sphere.065
+    4300132: Sphere.066
+    4300134: Sphere.067
+    4300136: Sphere.068
+    4300138: Sphere.069
+    4300140: Sphere.070
+    4300142: Sphere.071
+    4300144: Sphere.072
+    4300146: Sphere.073
+    4300148: Sphere.074
+    4300150: Sphere.075
+    4300152: Sphere.076
+    4300154: Sphere.077
+    4300156: Sphere.078
+    4300158: Sphere.079
+    4300160: Sphere.080
+    4300162: Sphere.081
+    4300164: Sphere.082
+    4300166: Sphere.083
+    4300168: Sphere.084
+    4300170: Sphere.085
+    4300172: Sphere.086
+    4300174: Sphere.087
+    4300176: Sphere.088
+    4300178: Sphere.089
+    4300180: Sphere.090
+    4300182: Sphere.091
+    4300184: Sphere.092
+    4300186: Sphere.093
+    4300188: Sphere.094
+    4300190: Sphere.095
+    4300192: Sphere.096
   externalObjects: {}
   materials:
     importMaterials: 1

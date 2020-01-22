@@ -30,10 +30,10 @@ namespace Es.InkPainter
         {
             if (player != null && plate != null && gameManager.OverrideDefaultCameraMove)
             {
-                if (plate.name == "Plate_9_02(Clone)")
+                if (gameManager.CurrentLevel > 9)
                 {
-                    Debug.Log(plate.name);
-                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * 2) + offset.y, transform.position.z), Time.deltaTime * smooth);
+   //                 Debug.Log(plate.name);
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * 1f) + offset.y, transform.position.z), Time.deltaTime * smooth);
                 }
                 else //if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 2)
                 {

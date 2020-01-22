@@ -13,9 +13,7 @@ using Es.InkPainter;
             gameManager = GameObject.FindObjectOfType<GameManager>();
         }
 
-
         void Update() { }
-
 
         private void OnCollisionEnter(Collision collision)
         {

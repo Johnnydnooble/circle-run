@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject ballInkPaintPrefab;
     [SerializeField] Vector3 ballInitialPos = new Vector3(x: 0, y: 10, z: 0);
     [SerializeField] Color ballColor;
-    [Range(3f, 60f)]
+    [Range(3f, 90f)]
     [SerializeField] float speedBall = 15f;
     [SerializeField] bool forceImpulse;
     [SerializeField] bool OverrideDefaultSpeedBall;
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color backgroundColor;
 
     [Header("Array of levels")]
-    [SerializeField] public GameObject[] levelArray = new GameObject[7];
+    [SerializeField] public GameObject[] levelArray = new GameObject[20];
 
     [SerializeField] Color newColor = Color.white;
 
@@ -199,10 +199,10 @@ public class GameManager : MonoBehaviour
 
         //            bottomLid = levelObject.transform.GetChild(0).gameObject;
 
-        if (_currentLevel == 5) // движущиеся клетки // ActivateMovingPiece
-        {
-            StartCoroutine(MovePiece2());
-        }
+ //       if (_currentLevel == 5) // движущиеся клетки // ActivateMovingPiece
+ //       {
+ //           StartCoroutine(MovePiece2());
+ //       }
 
         //inkPaint            if (coroutinePixelColor == null)
         //inkPaint            {
@@ -292,7 +292,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (OverrideDefaultSpeedBall)
                     { 
-                        rb.AddForce(tangent * 35f * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(tangent * 40f * Time.fixedDeltaTime, ForceMode.VelocityChange);
                     }
                     else
                     {      
@@ -303,7 +303,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (OverrideDefaultSpeedBall)
                     {                       
-                        rb.AddForce(tangent * 35f * Time.fixedDeltaTime, ForceMode.Impulse);
+                        rb.AddForce(tangent * 85f * Time.fixedDeltaTime, ForceMode.Impulse);
                     }
                     else
                     {
