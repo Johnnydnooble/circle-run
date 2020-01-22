@@ -208,6 +208,11 @@ public class GameManager : MonoBehaviour
         //inkPaint            {
         //inkPaint                coroutinePixelColor = StartCoroutine(PixelColor());
         //inkPaint            }
+
+        //Analytics here
+
+        TinySauce.OnGameStarted(levelNumber: CurrentLevel.ToString());
+
     }
 
     private void SetupPieces()
@@ -481,12 +486,14 @@ public class GameManager : MonoBehaviour
     {
         winPanel.SetActiveRecursively(true);
         Time.timeScale = 0;
+        TinySauce.OnGameFinished(levelNumber: CurrentLevel.ToString(), true, 1);
     }
 
     public void FailLevel()
     {
         losePanel.SetActive(true);
         Time.timeScale = 0;
+        TinySauce.OnGameFinished(levelNumber: CurrentLevel.ToString(), false, 1);
     }
 
     private void SaveData() // сохранить 
