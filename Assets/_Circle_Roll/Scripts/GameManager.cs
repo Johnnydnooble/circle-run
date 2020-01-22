@@ -48,7 +48,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Ball")]
     [Space(5)]
-    [SerializeField] GameObject ballPrefab;
+    [SerializeField] GameObject _ballPrefab;
+    public GameObject BallPrefab { get { return _ballPrefab; } set { _ballPrefab = value; } }
     [SerializeField] GameObject ballInkPaintPrefab;
     [SerializeField] Vector3 ballInitialPos = new Vector3(x: 0, y: 10, z: 0);
     [SerializeField] Color ballColor;
@@ -70,8 +71,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Color pieceColor;
 
     [Header("Background")]
-    [SerializeField] GameObject background;
-    [SerializeField] Material backgroundMat;
+    [SerializeField] GameObject _background;
+    public GameObject Background { get { return _background; } set { _background = value; } }
+
+    [SerializeField] Material backgroundMat;  
     [SerializeField] Color backgroundColor;
 
     [Header("Array of levels")]
@@ -173,8 +176,8 @@ public class GameManager : MonoBehaviour
         textCurrent.text = (_currentLevel + 1).ToString();
 
         //instantiate ball at initial position
-        ballPrefab = Instantiate(ballPrefab, ballInitialPos, Quaternion.identity); // 1 ball
-        rb = ballPrefab.GetComponent<Rigidbody>();
+        _ballPrefab = Instantiate(_ballPrefab, ballInitialPos, Quaternion.identity); // 1 ball
+        rb = _ballPrefab.GetComponent<Rigidbody>();
 
         //inkPaint            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
         //inkPaint            rb = ballPrefab.GetComponent<Rigidbody>();
@@ -186,7 +189,7 @@ public class GameManager : MonoBehaviour
         rbLevel = levelObject.GetComponent<Rigidbody>();
 
         //set color
-        ballPrefab.GetComponent<Renderer>().material.color = ballColor;
+        _ballPrefab.GetComponent<Renderer>().material.color = ballColor;
         pieceMat.color = pieceColor;
         plateMat.color = plateColor;
         backgroundMat.color = backgroundColor;
@@ -279,36 +282,20 @@ public class GameManager : MonoBehaviour
         //        Debug.Log(bottomLid);
         if (bottomLid != null)
         {
-            radiusToBall = bottomLid.transform.position - ballPrefab.transform.position;
+            radiusToBall = bottomLid.transform.position - _ballPrefab.transform.position;
             Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall).normalized;
-
             //            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
 
             if (Input.GetMouseButton(0))
             {
-                //                    Debug.Log("tangent " + tangent);
                 if (!forceImpulse)
                 {
                     if (OverrideDefaultSpeedBall)
-                    {
-                        // rb.AddForce(tangent * 600f * Time.deltaTime, ForceMode.Force); // is slow
-                        //                                       rb.AddForce(tangent * 10f, ForceMode.Acceleration); 
-                        //                   rb.AddForce(tangent * 1.5f, ForceMode.VelocityChange);
-                        //                                       rb.AddForce(tangent * 200f, ForceMode.Force);
-
+                    { 
                         rb.AddForce(tangent * 35f * Time.fixedDeltaTime, ForceMode.VelocityChange);
-                        //                    rb2.AddForce(tangent * 1f, ForceMode.VelocityChange);
-                        //                    rb3.AddForce(tangent * 1f, ForceMode.VelocityChange);
-
-                        //                    Quaternion deltaRotation = Quaternion.Euler(Vector3.up * -1000f * Time.deltaTime);
-                        //                    rbLevel.MoveRotation(rbLevel.rotation * deltaRotation);
-
-                        //                    Quaternion rotationY = Quaternion.AngleAxis(-5f, Vector3.up);
-                        //                    levelObject.transform.rotation *= rotationY;
                     }
                     else
-                    {
-                        //                    rb.AddForce(tangent * speedBall * Time.deltaTime, ForceMode.Impulse); // is fast       
+                    {      
                         rb.AddForce(tangent * speedBall * Time.fixedDeltaTime, ForceMode.VelocityChange);
                     }
                 }
@@ -322,8 +309,7 @@ public class GameManager : MonoBehaviour
                     {
                         rb.AddForce(tangent * speedBall * Time.fixedDeltaTime, ForceMode.Impulse);
                     }
-                }
-                
+                }                
             }
 
 //            if (Input.GetMouseButton(0))
@@ -377,7 +363,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WaitForTime());
         }
 
-        if (ballPrefab.transform.position.y < -5)
+        if (_ballPrefab.transform.position.y < -5)
         {
             FailLevel();
         }
@@ -393,7 +379,7 @@ public class GameManager : MonoBehaviour
     {
         if (other.tag == "Bonus")
         {
-            ballPrefab.GetComponent<CollisionPainter>().brush.splatScale = 0.2f;
+            _ballPrefab.GetComponent<CollisionPainter>().brush.splatScale = 0.2f;
         }
     }
 
@@ -451,14 +437,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator InstantiateBallInkPaintPrefab() // 3 ball
     {
-        ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
-        rb = ballPrefab.GetComponent<Rigidbody>();
+        _ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity);
+        rb = _ballPrefab.GetComponent<Rigidbody>();
         yield return new WaitForSeconds(1f);
-        ballPrefab = Instantiate(ballInkPaintPrefab, new Vector3(ballInitialPos.x + 1f, ballInitialPos.y, ballInitialPos.z + 1f), Quaternion.identity);
-        rb2 = ballPrefab.GetComponent<Rigidbody>();
+        _ballPrefab = Instantiate(ballInkPaintPrefab, new Vector3(ballInitialPos.x + 1f, ballInitialPos.y, ballInitialPos.z + 1f), Quaternion.identity);
+        rb2 = _ballPrefab.GetComponent<Rigidbody>();
         yield return new WaitForSeconds(1f);
-        ballPrefab = Instantiate(ballInkPaintPrefab, new Vector3(ballInitialPos.x - 1f, ballInitialPos.y, ballInitialPos.z - 1f), Quaternion.identity);
-        rb3 = ballPrefab.GetComponent<Rigidbody>();
+        _ballPrefab = Instantiate(ballInkPaintPrefab, new Vector3(ballInitialPos.x - 1f, ballInitialPos.y, ballInitialPos.z - 1f), Quaternion.identity);
+        rb3 = _ballPrefab.GetComponent<Rigidbody>();
     }
 
     public void RestartLevel()
