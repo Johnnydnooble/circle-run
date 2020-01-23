@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_04
   m_EditorClassIdentifier: 
   header: Level_04
-  ballColor: {r: 0, g: 0, b: 1, a: 0}
+  ballColor: {r: 1, g: 0.6901961, b: 0, a: 0}
   plateColor: {r: 1, g: 1, b: 1, a: 0}
-  plateColored: {r: 0, g: 0, b: 1, a: 0}
-  backgroundColor: {r: 0.39215687, g: 0.69803923, b: 0.45882353, a: 0}
+  plateColored: {r: 1, g: 0.6901961, b: 0, a: 0}
+  backgroundColor: {r: 0.67058825, g: 0.6313726, b: 0.6627451, a: 0}

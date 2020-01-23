@@ -28,9 +28,10 @@ using Es.InkPainter;
         void OnTriggerEnter(Collider other)
         {
  
-            if (other.tag == "Obstacle")
+            if (other.tag == "Gate")
             {
-                gameManager.FailLevel();
+            Debug.Log("Gate " + other.name);
+            gameManager.changeColor(other.gameObject);
             }
  //           if (other.tag == "Plate")
  //           {

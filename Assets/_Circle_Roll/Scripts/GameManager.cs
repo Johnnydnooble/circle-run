@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float speedBall = 15f;
     [SerializeField] bool forceImpulse;
     [SerializeField] bool OverrideDefaultSpeedBall;
+    private bool startMoveBall = false;
 
     [Space(5)]
 
@@ -177,6 +178,8 @@ public class GameManager : MonoBehaviour
         rb = _ballPrefab.GetComponent<Rigidbody>();
         rbLevel = levelObject.GetComponent<Rigidbody>();
 
+        StartCoroutine(StartMoveBall());
+
         #region old1
         //inkPaint            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
         //inkPaint            rb = ballPrefab.GetComponent<Rigidbody>();
@@ -286,7 +289,7 @@ public class GameManager : MonoBehaviour
             Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall).normalized;
             //            Vector3 tangent = Vector3.Cross(Vector3.up, radiusToBall);
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && startMoveBall)
             {
                 if (!forceImpulse)
                 {
@@ -381,6 +384,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator StartMoveBall()
+    {
+        yield return new WaitForSeconds(2f);
+        startMoveBall = true;
+    }
+
     IEnumerator PixelColor() // inkPaint
     {
         yield return new WaitForSeconds(2f);
@@ -427,9 +436,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForTime()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.7f);
         confettiParticle.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.3f);
         WinLevel();
     }
 

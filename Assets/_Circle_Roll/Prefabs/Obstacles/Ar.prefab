@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1598084229971688111}
   - component: {fileID: 1598084229970589807}
   - component: {fileID: 1287059581066419168}
+  - component: {fileID: 136753238828268968}
   m_Layer: 0
   m_Name: Ar
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,3 +93,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: c3f00e4b1e39df84d8ea81624eccdd57, type: 3}
+--- !u!136 &136753238828268968
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598084229972780719}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.080757014
+  m_Height: 0.46520674
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.045428216, z: -0.017449237}

@@ -7,6 +7,8 @@ TagManager:
   - Plate
   - Obstacle
   - Bonus
+  - Gate
+  - StartMove
   layers:
   - Default
   - TransparentFX
