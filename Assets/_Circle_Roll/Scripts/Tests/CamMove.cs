@@ -15,6 +15,7 @@ namespace Es.InkPainter
 
         [SerializeField] private Transform player; // Reference to the player's transform.
         [SerializeField] private GameObject plate;
+        [SerializeField] private GameObject targetCamera;
 
         private GameManager gameManager;
 
@@ -26,14 +27,15 @@ namespace Es.InkPainter
             plate = gameManager.levelArray[gameManager.CurrentLevel];
         }
 
-        void LateUpdate()
+        private void Update()
         {
             if (player != null && plate != null && gameManager.OverrideDefaultCameraMove)
             {
-                if (gameManager.CurrentLevel > 9)
+                if (gameManager.CurrentLevel >= 9)
                 {
-   //                 Debug.Log(plate.name);
-                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * 1f) + offset.y, transform.position.z), Time.deltaTime * smooth);
+                    //                 Debug.Log(plate.name);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetCamera.transform.rotation, Time.deltaTime * 0.5f);
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, player.position.y + ((Mathf.Abs(player.position.x) + Mathf.Abs(player.position.z)) * .4f) + offset.y, targetCamera.transform.position.z), Time.deltaTime * smooth);
                 }
                 else //if (m_Player != null && PlayerPrefs.GetInt("CurrentLevel", 0) == 2)
                 {
@@ -49,6 +51,7 @@ namespace Es.InkPainter
             player = GameObject.FindGameObjectWithTag("Player").transform;
 //            plate = GameObject.FindGameObjectWithTag("Plate");
             offset = transform.position - player.transform.position;
+            offset += new Vector3(0, 2f, 0);
         }
     }
 }
@@ -61,11 +64,11 @@ namespace Es.InkPainter
 
 
 
-bool moveRight, moveLeft; // просто значения влево/вправо - [b]необязательны[/b]
-public Transform selfTransform; //сохраняем трансформ нашего объекта и камеры
+bool moveRight, moveLeft; 
+public Transform selfTransform; 
 public Transform mainCamTransform;
 [SerializeField]
-Camera cam;    //вешаем сюда нашу камеру
+Camera cam;   
 Vector3 wantedPosition;
 
 void Start()
@@ -77,10 +80,8 @@ void Start()
 
 IEnumerator coUpdate()
 {
-
     while (true)
     {
-
         if (moveRight)
         {
             wantedPosition = new Vector3(selfTransform.position.x, mainCamTransform.position.y + 100, mainCamTransform.position.z);
@@ -93,10 +94,6 @@ IEnumerator coUpdate()
 
         yield return 0;
     }
-
-
-
-
 }
 }
 

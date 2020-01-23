@@ -13,5 +13,4 @@ public class LevelsItem : ScriptableObject
     public Color plateColor;
     public Color plateColored;
     public Color backgroundColor;
-
 }

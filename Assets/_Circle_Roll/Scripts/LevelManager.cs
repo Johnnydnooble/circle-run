@@ -16,12 +16,7 @@ public class LevelManager : MonoBehaviour
     
 
     private void Start()
-    {
-        //        _gameManager.Background.GetComponent<Renderer>().material.color = levelsItem[_gameManager.CurrentLevel].backgroundColor;
-        //        _gameManager.BallPrefab.GetComponent<Renderer>().material.color = levelsItem[_gameManager.CurrentLevel].ballColor;
-        //        _gameManager.BallPrefab.GetComponent<Renderer>().material.color = levelsItem[_gameManager.CurrentLevel].ballColor;
-
-        
+    {       
         ballMat.color = levelsItem[_gameManager.CurrentLevel].ballColor;
         plateMat.color = levelsItem[_gameManager.CurrentLevel].plateColor;
         pieceMat.color = levelsItem[_gameManager.CurrentLevel].plateColored;

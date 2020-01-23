@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        #region  CurrentOld
         //            if (resetLevel)
         //            {
         //                PlayerPrefs.SetInt("CurrentLevel", 0); // (сброс прогресса игры)
@@ -146,7 +147,7 @@ public class GameManager : MonoBehaviour
         //=           }
         //=           else
         //=           {
-
+        #endregion CurrentOld
 
         InitSaves();
         PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
@@ -163,11 +164,7 @@ public class GameManager : MonoBehaviour
 
             bottomLid = levelObject.transform.GetChild(1).gameObject;
         }
-
-
-        //=            }
-
-
+        // } //CurrentOld
     }
 
     void Start()
@@ -178,7 +175,9 @@ public class GameManager : MonoBehaviour
         //instantiate ball at initial position
         _ballPrefab = Instantiate(_ballPrefab, ballInitialPos, Quaternion.identity); // 1 ball
         rb = _ballPrefab.GetComponent<Rigidbody>();
+        rbLevel = levelObject.GetComponent<Rigidbody>();
 
+        #region old1
         //inkPaint            ballPrefab = Instantiate(ballInkPaintPrefab, ballInitialPos, Quaternion.identity); // 1 ball
         //inkPaint            rb = ballPrefab.GetComponent<Rigidbody>();
         //inkPaint            //           StartCoroutine(InstantiateBallInkPaintPrefab()); // 3 balls
@@ -186,28 +185,29 @@ public class GameManager : MonoBehaviour
         //inkPaint       //     inkCanvas = levelObject.transform.GetComponent<InkCanvas>(); // скрипт закраски кистью без детей
         //inkPaint              inkCanvas = levelObject.transform.GetChild(0).GetComponent<InkCanvas>(); // скрипт закраски кистью
 
-        rbLevel = levelObject.GetComponent<Rigidbody>();
+
 
         //set color
-        _ballPrefab.GetComponent<Renderer>().material.color = ballColor;
-        pieceMat.color = pieceColor;
-        plateMat.color = plateColor;
-        backgroundMat.color = backgroundColor;
+        //===        _ballPrefab.GetComponent<Renderer>().material.color = ballColor;
+        //===        pieceMat.color = pieceColor;
+        //===        plateMat.color = plateColor;
+        //===        backgroundMat.color = backgroundColor;
 
         //Set Material
         //        colorMat = Resources.Load("PieceMat", typeof(Material)) as Material;    
 
         //            bottomLid = levelObject.transform.GetChild(0).gameObject;
 
- //       if (_currentLevel == 5) // движущиеся клетки // ActivateMovingPiece
- //       {
- //           StartCoroutine(MovePiece2());
- //       }
+        //       if (_currentLevel == 5) // движущиеся клетки // ActivateMovingPiece
+        //       {
+        //           StartCoroutine(MovePiece2());
+        //       }
 
         //inkPaint            if (coroutinePixelColor == null)
         //inkPaint            {
         //inkPaint                coroutinePixelColor = StartCoroutine(PixelColor());
         //inkPaint            }
+        #endregion old1
     }
 
     private void SetupPieces()
@@ -311,32 +311,31 @@ public class GameManager : MonoBehaviour
                     }
                 }                
             }
-
-//            if (Input.GetMouseButton(0))
-//            {
-//                if (inOut)
-//                {
-//                    radius = 0f;
-//                    inOut = false;
-//                }
-//                radius = Mathf.Lerp(radius, 1f, Time.deltaTime * 3f);
-//                angle += Time.deltaTime;
-//                var x = Mathf.Cos(angle * speed) * radius;
-//                var z = Mathf.Sin(angle * speed) * radius;
-//                levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
-//            }
-//            else
-//            {
-//                radius = Mathf.Lerp(radius, 0f, Time.deltaTime * 3f);
-//                angle += Time.deltaTime;
-//                var x = Mathf.Cos(angle * speed) * radius;
-//                var z = Mathf.Sin(angle * speed) * radius;
-//                levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
-//
-//                inOut = true;
-//            }
-
-
+            #region old2
+            //            if (Input.GetMouseButton(0))
+            //            {
+            //                if (inOut)
+            //                {
+            //                    radius = 0f;
+            //                    inOut = false;
+            //                }
+            //                radius = Mathf.Lerp(radius, 1f, Time.deltaTime * 3f);
+            //                angle += Time.deltaTime;
+            //                var x = Mathf.Cos(angle * speed) * radius;
+            //                var z = Mathf.Sin(angle * speed) * radius;
+            //                levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
+            //            }
+            //            else
+            //            {
+            //                radius = Mathf.Lerp(radius, 0f, Time.deltaTime * 3f);
+            //                angle += Time.deltaTime;
+            //                var x = Mathf.Cos(angle * speed) * radius;
+            //                var z = Mathf.Sin(angle * speed) * radius;
+            //                levelObject.transform.position = new Vector3(x, 0f, z) + startPlateCenter;
+            //
+            //                inOut = true;
+            //            }
+            #endregion old2
         }
 
         if (pieceList.Count > 29)
@@ -354,7 +353,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //
     private void Update()
     {
         //            Debug.Log(pieceList.Count);
