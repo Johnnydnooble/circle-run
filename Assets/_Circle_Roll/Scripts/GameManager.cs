@@ -46,6 +46,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject losePanel;
     [SerializeField] GameObject confettiParticle;
 
+//    [SerializeField] Text _textScore;
+//    [SerializeField] int scoreCount = 0;
+    [SerializeField] GameObject _progressBarPanel;
+    [SerializeField] Image _progressBarImage;
+    [SerializeField] Image _backgroundProgressBar;
+//    [SerializeField] float scoreCountToFloat;
+    [SerializeField] int _progressBarCountBag = 0;
+    private float pieceListLength;
+    private float temp;
+
     [Header("Ball")]
     [Space(5)]
     [SerializeField] GameObject _ballPrefab;
@@ -172,6 +182,7 @@ public class GameManager : MonoBehaviour
     {
         // level
         textCurrent.text = (_currentLevel + 1).ToString();
+        temp = pieceListLength = pieceList.Count;
 
         //instantiate ball at initial position
         _ballPrefab = Instantiate(_ballPrefab, ballInitialPos, Quaternion.identity); // 1 ball
@@ -527,6 +538,19 @@ public class GameManager : MonoBehaviour
         // rend.material.DOColor(Color.green, 0.5f);
         rend.material = pieceMat;
     }
+
+    public void ProgressBar()
+    {
+      
+        if (temp > pieceList.Count)
+        {
+            _progressBarImage.fillAmount += 1 / pieceListLength; //   
+            temp = pieceList.Count;
+        }
+//        _loseCompleteProgressText.text = (int)(_progressBarImage.fillAmount * 100) + "% completed";
+    }
+
+
 
     IEnumerator MovePiece2() // 
     {

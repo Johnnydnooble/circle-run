@@ -22,6 +22,7 @@ using Es.InkPainter;
             {
                 gameManager.changeColor(collision.gameObject);
                 gameManager.animatePiece(collision.gameObject);
+                gameManager.ProgressBar();
             }
         }
 
