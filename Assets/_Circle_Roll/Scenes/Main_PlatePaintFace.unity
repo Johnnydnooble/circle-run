@@ -10598,10 +10598,17 @@ MonoBehaviour:
   winPanel: {fileID: 2635108216218047531}
   losePanel: {fileID: 8883091495249915289}
   confettiParticle: {fileID: 2097245621}
+  prevLevelTexts:
+  - {fileID: 6225240966192517033}
+  - {fileID: 7613038133213824343}
+  nextLevelTexts:
+  - {fileID: 3139061497632183504}
+  - {fileID: 8340313437979635458}
   _progressBarPanel: {fileID: 5952179731324791393}
   _progressBarImage: {fileID: 6684904908734529493}
   _backgroundProgressBar: {fileID: 8450148281414593545}
   _progressBarCountBag: 0
+  loseCompleteProgressText: {fileID: 1711475834854330988}
   _ballPrefab: {fileID: 4466709565914257738, guid: 7ef540b4266d3469db6d075c664d70ea,
     type: 3}
   ballInkPaintPrefab: {fileID: 4466709565914257738, guid: da37b0da8657be348984c50ca25d71b2,
@@ -27045,7 +27052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5094155962850445931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32287,7 +32294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -201}
+  m_AnchoredPosition: {x: 0, y: -338}
   m_SizeDelta: {x: 0, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &8778108317861782413

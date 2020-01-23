@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
 
 //    [SerializeField] Text _textScore;
 //    [SerializeField] int scoreCount = 0;
+    [SerializeField] Text[] prevLevelTexts;
+    [SerializeField] Text[] nextLevelTexts;
     [SerializeField] GameObject _progressBarPanel;
     [SerializeField] Image _progressBarImage;
     [SerializeField] Image _backgroundProgressBar;
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int _progressBarCountBag = 0;
     private float pieceListLength;
     private float temp;
+    [SerializeField] Text loseCompleteProgressText;
 
     [Header("Ball")]
     [Space(5)]
@@ -170,6 +173,7 @@ public class GameManager : MonoBehaviour
         {
             // plate, piece
             levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+           
             Time.timeScale = 1;
             SetupPieces();
 
@@ -182,7 +186,16 @@ public class GameManager : MonoBehaviour
     {
         // level
         textCurrent.text = (_currentLevel + 1).ToString();
-        temp = pieceListLength = pieceList.Count;
+
+        // progress bar
+        for (int i = 0; i < prevLevelTexts.Length; i++)
+        {
+            prevLevelTexts[i].text = _currentLevel + 1 + ""; // меняем номер текущего уровня в ProgressBar
+            nextLevelTexts[i].text = _currentLevel + 2 + ""; // меняем номер следущего уровня в ProgressBar      
+        }
+        
+       
+        temp = pieceListLength = pieceList.Count; 
 
         //instantiate ball at initial position
         _ballPrefab = Instantiate(_ballPrefab, ballInitialPos, Quaternion.identity); // 1 ball
@@ -504,6 +517,7 @@ public class GameManager : MonoBehaviour
     public void FailLevel()
     {
         losePanel.SetActive(true);
+        loseCompleteProgressText.text = (int)(_progressBarImage.fillAmount * 100) + "% completed";
         Time.timeScale = 0;
     }
 
@@ -547,7 +561,7 @@ public class GameManager : MonoBehaviour
             _progressBarImage.fillAmount += 1 / pieceListLength; //   
             temp = pieceList.Count;
         }
-//        _loseCompleteProgressText.text = (int)(_progressBarImage.fillAmount * 100) + "% completed";
+
     }
 
 
