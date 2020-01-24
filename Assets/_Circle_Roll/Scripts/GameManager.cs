@@ -400,14 +400,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Bonus")
-        {
-            _ballPrefab.GetComponent<CollisionPainter>().brush.splatScale = 0.2f;
-        }
-    }
-
     IEnumerator StartMoveBall()
     {
         yield return new WaitForSeconds(2f);
@@ -554,17 +546,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void ProgressBar()
-    {
-      
+    {      
         if (temp > pieceList.Count)
         {
             _progressBarImage.fillAmount += 1 / pieceListLength; //   
             temp = pieceList.Count;
         }
-
     }
-
-
 
     IEnumerator MovePiece2() // 
     {
