@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int _progressBarCountBag = 0;
     private float pieceListLength;
     private float temp;
-    [SerializeField] Text loseCompleteProgressText;
+    [SerializeField] Text loseCompleteProgressText;   
 
     [Header("Ball")]
     [Space(5)]
@@ -144,6 +144,10 @@ public class GameManager : MonoBehaviour
     //       private RenderTexture sourceTex;
     private Coroutine coroutinePixelColor;
 
+    [Header("Tutorial")]
+    [SerializeField] GameObject _tutorialParent;
+    private bool flagTutorial = false;
+
     private void Awake()
     {
         #region  CurrentOld
@@ -162,7 +166,7 @@ public class GameManager : MonoBehaviour
         //=           else
         //=           {
         #endregion CurrentOld
-
+     
         InitSaves();
         PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
         if ((_currentLevel) >= levelArray.Length)
@@ -184,6 +188,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        TinySauce.OnGameStarted(levelNumber: _currentLevel.ToString()); // Аналитика
+
+        if (_currentLevel == 0  && !flagTutorial) // Tutorial
+        {
+            ActiveTutorial(true);
+            flagTutorial = true;
+        }
+
         // level
         textCurrent.text = (_currentLevel + 1).ToString();
 
@@ -315,6 +327,8 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButton(0) && startMoveBall)
             {
+                ActiveTutorial(false);
+
                 if (!forceImpulse)
                 {
                     if (OverrideDefaultSpeedBall)
@@ -502,12 +516,16 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()
     {
+        TinySauce.OnGameFinished(levelNumber: _currentLevel.ToString(), true, 100); // Аналитика - выйграл
+
         winPanel.SetActiveRecursively(true);
         Time.timeScale = 0;
     }
 
     public void FailLevel()
     {
+        TinySauce.OnGameFinished(levelNumber: _currentLevel.ToString(), false, 100); // Аналитика - проиграл
+
         losePanel.SetActive(true);
         loseCompleteProgressText.text = (int)(_progressBarImage.fillAmount * 100) + "% completed";
         Time.timeScale = 0;
@@ -574,5 +592,10 @@ public class GameManager : MonoBehaviour
         old = red;
 
         StartCoroutine(MovePiece2());
+    }
+
+    public void ActiveTutorial(bool active)
+    {
+        _tutorialParent.SetActive(active);
     }
 }

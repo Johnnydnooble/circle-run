@@ -1,0 +1,96 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+// Android Resolver Repos Start
+([rootProject] + (rootProject.subprojects as List)).each { project ->
+    project.repositories {
+        maven {
+            url "https://maven.google.com"
+        }
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+}
+// Android Resolver Repos End
+
+apply plugin: 'com.android.application'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //////////////////////////////////////////////////////////////////////////
+    // VOODOO  SECTION
+
+    implementation 'com.android.support:multidex:1.0.3'
+  	implementation 'com.android.installreferrer:installreferrer:1.0'
+
+    //
+    //////////////////////////////////////////////////////////////////////////
+
+**DEPS**}
+
+android {
+    compileSdkVersion **APIVERSION**
+    buildToolsVersion '**BUILDTOOLS**'
+
+    defaultConfig {
+        multiDexEnabled true
+        minSdkVersion 19
+        targetSdkVersion 28
+
+        versionCode **VERSIONCODE**
+        versionName '**VERSIONNAME**'
+        applicationId '**APPLICATIONID**'
+    }
+
+    dexOptions {
+        preDexLibraries false
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+       exclude  'jsr305_annotations/Jsr305_annotations.gwt.xml'
+    }
+
+    aaptOptions {
+        noCompress '.unity3d', '.ress', '.resource', '.obb'**STREAMING_ASSETS**
+    }**SIGN**
+
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+        release {
+            minifyEnabled false
+            **SIGNCONFIG**
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
