@@ -146,7 +146,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Tutorial")]
     [SerializeField] GameObject _tutorialParent;
-    private bool flagTutorial = false;
 
     private void Awake()
     {
@@ -190,10 +189,9 @@ public class GameManager : MonoBehaviour
     {
         TinySauce.OnGameStarted(levelNumber: _currentLevel.ToString()); // Аналитика
 
-        if (_currentLevel == 0  && !flagTutorial) // Tutorial
+        if (_currentLevel == 0) // Tutorial
         {
-            ActiveTutorial(true);
-            flagTutorial = true;
+           StartCoroutine(ActiveTutorial(true));
         }
 
         // level
@@ -327,7 +325,7 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButton(0) && startMoveBall)
             {
-                ActiveTutorial(false);
+                StartCoroutine(ActiveTutorial(false));
 
                 if (!forceImpulse)
                 {
@@ -594,8 +592,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(MovePiece2());
     }
 
-    public void ActiveTutorial(bool active)
+    IEnumerator ActiveTutorial(bool active)
     {
-        _tutorialParent.SetActive(active);
+        if (active == false)
+        {
+            _tutorialParent.SetActive(active);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.8f);
+            _tutorialParent.SetActive(active);
+        }       
     }
 }
