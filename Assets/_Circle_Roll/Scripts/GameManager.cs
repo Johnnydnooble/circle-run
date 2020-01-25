@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Vector3 ballInitialPos = new Vector3(x: 0, y: 10, z: 0);
     [SerializeField] Color ballColor;
     [Range(3f, 90f)]
-    [SerializeField] float speedBall = 15f;
+    [SerializeField] float speedBall = 85f;
+    private float speedBallLevels = 85f;
     [SerializeField] bool forceImpulse;
     [SerializeField] bool OverrideDefaultSpeedBall;
     private bool startMoveBall = false;
@@ -187,6 +188,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Physics.gravity = new Vector3(0, -17f, 0);
+
         TinySauce.OnGameStarted(levelNumber: _currentLevel.ToString()); // Аналитика
 
         if (_currentLevel == 0) // Tutorial
@@ -315,8 +318,19 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //radiusToBall = ball.transform.position - centre.transform.position;
-        //        Debug.Log(bottomLid);
+        if (_currentLevel < 2) //  Уменьшаем скорость если 1-2 уровни.
+        {
+            speedBallLevels = 60f;
+        }
+        else if(_currentLevel < 10)
+        {
+            speedBallLevels = 85f;
+        }
+        else
+        {
+            speedBallLevels = 130f;
+        }
+
         if (bottomLid != null)
         {
             radiusToBall = bottomLid.transform.position - _ballPrefab.transform.position;
@@ -342,7 +356,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (OverrideDefaultSpeedBall)
                     {                       
-                        rb.AddForce(tangent * 85f * Time.fixedDeltaTime, ForceMode.Impulse);
+                        rb.AddForce(tangent * speedBallLevels * Time.fixedDeltaTime, ForceMode.Impulse);
                     }
                     else
                     {
