@@ -168,22 +168,35 @@ public class GameManager : MonoBehaviour
         #endregion CurrentOld
      
         InitSaves();
-        PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
 
-        if ((_currentLevel) >= levelArray.Length)
+
+
+        PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+        
+        if (_currentLevel > 29)
         {
-            Reset();
-        }
-        else
-        {
-            // plate, piece
-            levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
-           
+            int randomIntLevel = UnityEngine.Random.Range(10, 20);
+            levelObject = Instantiate(levelArray[randomIntLevel], new Vector3(0, 0, 0), Quaternion.identity);
+
             Time.timeScale = 1;
             SetupPieces();
 
             bottomLid = levelObject.transform.GetChild(1).gameObject;
         }
+
+        else
+        {
+            levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
+
+            Time.timeScale = 1;
+            SetupPieces();
+
+            bottomLid = levelObject.transform.GetChild(1).gameObject;
+        }
+
+
+
+        
         // } //CurrentOld
     }
 
@@ -526,6 +539,7 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         Time.timeScale = 1;
+
 
         _currentLevel++;
 
