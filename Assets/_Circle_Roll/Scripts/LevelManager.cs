@@ -16,10 +16,10 @@ public class LevelManager : MonoBehaviour
     
 
     private void Start()
-    {       
-        ballMat.color = levelsItem[_gameManager.CurrentLevel].ballColor;
-        plateMat.color = levelsItem[_gameManager.CurrentLevel].plateColor;
-        pieceMat.color = levelsItem[_gameManager.CurrentLevel].plateColored;
-        background.color = levelsItem[_gameManager.CurrentLevel].backgroundColor;
+    {
+            ballMat.color = levelsItem[_gameManager.RealLevel].ballColor;
+            plateMat.color = levelsItem[_gameManager.RealLevel].plateColor;
+            pieceMat.color = levelsItem[_gameManager.RealLevel].plateColored;
+            background.color = levelsItem[_gameManager.RealLevel].backgroundColor;      
     }
 }

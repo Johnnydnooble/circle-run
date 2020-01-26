@@ -10,8 +10,8 @@ using UnityEngine.AI;
 using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 using System.Linq;
-using Es.InkPainter.Effective;
-using Es;
+//using Es.InkPainter.Effective;
+//using Es;
 using Es.InkPainter;
 
 
@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     // Level
     private int _currentLevel;
     public int CurrentLevel { get { return _currentLevel; } set { _currentLevel = value; } }
+    private int _realLevel;
+    public int RealLevel { get { return _realLevel; } set { _realLevel = value; } }
 
     [Header("Camera Move")]
     [SerializeField] GameObject camera;
@@ -170,12 +172,23 @@ public class GameManager : MonoBehaviour
         InitSaves();
         PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
 
+      
+
         if ((_currentLevel) >= levelArray.Length)
         {
-            Reset();
+            _realLevel = UnityEngine.Random.Range(9, 19);
+           // plate, piece
+           levelObject = Instantiate(levelArray[_realLevel], new Vector3(0, 0, 0), Quaternion.identity);
+
+            Time.timeScale = 1;
+            SetupPieces();
+
+            bottomLid = levelObject.transform.GetChild(1).gameObject;
         }
         else
         {
+            _realLevel = _currentLevel;
+
             // plate, piece
             levelObject = Instantiate(levelArray[_currentLevel], new Vector3(0, 0, 0), Quaternion.identity);
            

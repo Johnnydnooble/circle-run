@@ -24,7 +24,7 @@ namespace Es.InkPainter
         {
             gameManager = GameObject.FindObjectOfType<GameManager>();
             StartCoroutine(FindPlayer());
-            plate = gameManager.levelArray[gameManager.CurrentLevel];
+            plate = gameManager.levelArray[gameManager.RealLevel];
         }
 
         private void Update()
