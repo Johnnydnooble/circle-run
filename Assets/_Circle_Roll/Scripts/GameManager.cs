@@ -320,7 +320,7 @@ public class GameManager : MonoBehaviour
     {
         if (_currentLevel < 2) //  Уменьшаем скорость если 1-2 уровни.
         {
-            speedBallLevels = 60f;
+            speedBallLevels = 85f;
         }
         else if(_currentLevel < 10)
         {

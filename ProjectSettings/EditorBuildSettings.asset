@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Circle_Roll/Scenes/Main_PlatePaintFace.unity
+    guid: ba1599a2fd0861d4fa5de32fa6397e7e
   m_configObjects: {}

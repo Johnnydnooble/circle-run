@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa11ec82e9746928e211e7f096812ca, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  gameAnalyticsIosGameKey: dd9dbf0ea25da9ad919758f9a16baafd
-  gameAnalyticsIosSecretKey: d4b0d8ead3f27498f73e53caccfb5c5661e51888
+  gameAnalyticsIosGameKey: 876c85d66510c2cd79b3c5c68644f385
+  gameAnalyticsIosSecretKey: 2b11dc1de84fe6c596000beb7db206b788a09d32
   gameAnalyticsAndroidGameKey: 
   gameAnalyticsAndroidSecretKey: 
   facebookAppId: 1360638760775121
