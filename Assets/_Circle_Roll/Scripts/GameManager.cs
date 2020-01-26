@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
      
         InitSaves();
         PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+
         if ((_currentLevel) >= levelArray.Length)
         {
             Reset();
@@ -192,10 +193,16 @@ public class GameManager : MonoBehaviour
 
         TinySauce.OnGameStarted(levelNumber: _currentLevel.ToString()); // Аналитика
 
-        if (_currentLevel == 0) // Tutorial
+        if (!PlayerPrefs.HasKey("NotNew"))
         {
-           StartCoroutine(ActiveTutorial(true));
+            StartCoroutine(ActiveTutorial(true));
         }
+
+
+        //if (_currentLevel == 0) // Tutorial 
+        //{
+        //   StartCoroutine(ActiveTutorial(true));
+        //}
 
         // level
         textCurrent.text = (_currentLevel + 1).ToString();
@@ -608,6 +615,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ActiveTutorial(bool active)
     {
+        PlayerPrefs.SetInt("NotNew", 1);
         if (active == false)
         {
             _tutorialParent.SetActive(active);
